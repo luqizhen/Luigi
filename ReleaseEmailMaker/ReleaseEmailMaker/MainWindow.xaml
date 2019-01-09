@@ -1,0 +1,114 @@
+﻿<Window x:Class="ReleaseEmailMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReleaseEmailMaker"
+        mc:Ignorable="d"
+        Title="Release Email Maker" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <GroupBox Header="Project">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <RadioButton x:Name="excaliburRB" Content=" EXCALIBUR" IsChecked="True"/>
+                    <RadioButton x:Name="osriRB" Content=" OSRI"/>
+                    <RadioButton x:Name="customProjectRB">
+                        <TextBox Name="customProjectTB" Text="RCC" Width="70"/>
+                    </RadioButton>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <GroupBox Name="VersionGroup" Header="Add Version">
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Location" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox Name="locationTB" Text="Akamai" Height="20" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Debug" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Name="debugVersion" Height="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Release" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox Name="releaseVersion" Height="20" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Label Content="Version" Grid.Row="3" Grid.Column="0"/>
+                    <TextBox Name="version" Text="4.3" Height="20" Grid.Row="3" Grid.Column="1"/>
+                    <Button Grid.Row="3" Grid.Column="2" Name="AddVersionBtn" Content="Add" Width="40" Height="20" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="2">
+            <GroupBox Name="jiraGroup" Header="Add JIRA Item">
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="JIRA ID"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="jiraTB" Height="20"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="JIRA Title"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="jiraTitleTB" Height="20" IsReadOnly="True" Background="#EEEEEE"/>
+                    <RadioButton Grid.Row="2" Grid.Column="0" Name="bugRB" Content="Bug" Height="20"/>
+                    <RadioButton Grid.Row="2" Grid.Column="1" Name="storyRB" Content="Story" Height="20"/>
+                    <RadioButton Grid.Row="2" Grid.Column="2" Name="issueRB" Content="Issue" Height="20"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="Version"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Name="versionTB" Height="20"/>
+                    <Button Grid.Row="3" Grid.Column="2" Name="AddJIRABtn" Content="Add" Width="40" Height="20" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="3">
+            <GroupBox Name="CustomGroup" Header="Add Custom Item">
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Description"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="DescriptionTB" Height="50" TextWrapping="Wrap"/>
+                    <RadioButton Grid.Row="1" Grid.Column="0" Name="bugRB2" Content="Bug" Height="20"/>
+                    <RadioButton Grid.Row="1" Grid.Column="1" Name="storyRB2" Content="Story" Height="20"/>
+                    <RadioButton Grid.Row="1" Grid.Column="2" Name="issueRB2" Content="Issue" Height="20"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="Version"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Name="versionTB2" Height="20"/>
+                    <Button Grid.Row="2" Grid.Column="2" Name="AddCustomBtn" Content="Add" Width="40" Height="20" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
+            <GroupBox Header="View">
+                <TextBox Name="documentTB" IsReadOnly="True" Background="#EEEEEE"/>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>
