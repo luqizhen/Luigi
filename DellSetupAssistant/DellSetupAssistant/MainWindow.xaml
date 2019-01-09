@@ -16,6 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="0" Grid.Row="0" Background="LightBlue">
+            <Label Content="Telemetry sender simulator" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
             <Label Content="Tags" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-200,500,0" FontSize="20"/>
             <Label Content="APPs" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,500,0" FontSize="20"/>
             <TextBox x:Name="tagsTB" HorizontalAlignment="Center" Height="50" TextWrapping="Wrap" VerticalAlignment="Center" Width="400" Margin="0,-200,0,0" FontSize="20"/>
@@ -23,6 +24,7 @@
             <Button x:Name="sendTelemetryBtn" Content="Send telemetry" HorizontalAlignment="Center" Height="50" VerticalAlignment="Center" Width="150" Margin="0,200,0,0" FontSize="20" Click="SendTelemetryBtn_Click"/>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="1" Background="LightYellow">
+            <Label Content="App searcher simulator" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
             <Label Content="Tags" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-200,500,0" FontSize="20"/>
             <Label Content="APPs" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,500,0" FontSize="20"/>
             <TextBox x:Name="outTagsTB" HorizontalAlignment="Center" Height="50" TextWrapping="Wrap" VerticalAlignment="Center" Width="400" Margin="0,-200,0,0" FontSize="20"/>
@@ -30,7 +32,7 @@
             <Button x:Name="matchBtn" Content="Match" HorizontalAlignment="Center" Height="50" VerticalAlignment="Center" Width="150" Margin="0,200,0,0" FontSize="20" Click="MatchBtn_Click"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="LightGreen">
-            <Label Content="Data" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+            <Label Content="Database" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
             <DataGrid Name="databaseDG" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Width="600" Height="650">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="App name" Width="150" Binding="{Binding App}"/>
