@@ -20,9 +20,23 @@ namespace ReleaseEmailMaker
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private string document = string.Empty;
+        public string Document { get => document; set => document = value; }
+
+        private void ExcaliburRB_Checked(object sender, RoutedEventArgs e)
+        {
+            Document = Template.EXCALIBUR;
+        }
+
+        private void OsriRB_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
