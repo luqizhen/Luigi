@@ -26,17 +26,42 @@ namespace ReleaseEmailMaker
             InitializeComponent();
         }
 
-        private string document = string.Empty;
-        public string Document { get => document; set => document = value; }
+        private string _format = string.Empty;
+
+        public string ProductName { get; set; }
 
         private void ExcaliburRB_Checked(object sender, RoutedEventArgs e)
         {
-            Document = Template.EXCALIBUR;
+            _format = Constants.FORMAT_EXCALIBUR;
+            ProductName = "Excalibur";
         }
 
         private void OsriRB_Checked(object sender, RoutedEventArgs e)
         {
+            _format = Constants.FORMAT_OSRI;
+            ProductName = "OSRI";
+        }
+        
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void HelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddVersionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var packageLocation = locationTB.Text;
+            var version = versionTB.Text;
+            ReleaseVersion rv = new ReleaseVersion(ProductName, version, _format); 
         }
     }
 }
