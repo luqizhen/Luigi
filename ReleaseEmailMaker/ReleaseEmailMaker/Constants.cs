@@ -17,6 +17,7 @@ Completed Stories:
 
 Known issues:
 {7}
+
 ";
         public const string FORMAT_ONE_VERSION = @"The {0} {1} Version {2} ({3} build) is ready, the package in in the {4} now.
 
@@ -33,6 +34,7 @@ Completed Stories:
 
 Known issues:
 {7}
+
 ";
     }
 }

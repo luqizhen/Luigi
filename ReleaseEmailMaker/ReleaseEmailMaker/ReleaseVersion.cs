@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ReleaseEmailMaker
 {
@@ -41,6 +42,11 @@ namespace ReleaseEmailMaker
                 item = custom;
             }
 
+            if(bugItems.Contains(item) || storyItems.Contains(item) || issueItems.Contains(item))
+            {
+                return;
+            }
+
             switch (type)
             {
                 case ItemType.BUG:
@@ -51,6 +57,47 @@ namespace ReleaseEmailMaker
                     break;
                 case ItemType.ISSUE:
                     issueItems.Add(item);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void DeleteItem(ItemType type, string ID, string custom)
+        {
+            string item = null;
+            if (!string.IsNullOrWhiteSpace(ID))
+            {
+                item = JiraManager.Instance.GetTitle(ID);
+                if (!string.IsNullOrWhiteSpace(item))
+                {
+                    item = ID + "\t" + item;
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(custom))
+            {
+                item = custom;
+            }
+
+            switch (type)
+            {
+                case ItemType.BUG:
+                    if (bugItems.Contains(item))
+                    {
+                        bugItems.Remove(item);
+                    }
+                    break;
+                case ItemType.STORY:
+                    if (storyItems.Contains(item))
+                    {
+                        storyItems.Remove(item);
+                    }
+                    break;
+                case ItemType.ISSUE:
+                    if (issueItems.Contains(item))
+                    {
+                        issueItems.Remove(item);
+                    }
                     break;
                 default:
                     break;

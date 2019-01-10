@@ -26,7 +26,7 @@ namespace ReleaseEmailMaker
         {
             _jira = new Jira.SDK.Jira();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            _jira.Connect(URL,USERNAME,PASSWORD);
+            _jira.Connect(URL, USERNAME, PASSWORD);
         }
 
         public string GetTitle(string jiraID)

@@ -57,9 +57,9 @@
                     <Label Content="Package Loc." Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
                     <TextBox Name="locationTB" Text="Akamai" Height="20" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>
                     <Label Content="Debug Ver." Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="debugVersionTB" Height="20" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    <TextBox Name="debugVersionTB" Height="20" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="4.3.0.1000"/>
                     <Label Content="Release Ver." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="releaseVersionTB" Height="20" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    <TextBox Name="releaseVersionTB" Height="20" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Text="4.3.0.1001"/>
                     <Label Content="Version" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"/>
                     <TextBox Name="versionTB" Text="4.3" Height="20" Grid.Row="3" Grid.Column="1"/>
                     <Button Grid.Row="3" Grid.Column="2" Name="AddVersionBtn" Content="Add" Width="40" Height="20" Click="AddVersionBtn_Click" />
@@ -83,7 +83,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="JIRA ID" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="jiraTB" Height="20"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="jiraTB" Height="20" Text="EXCALIBUR-4000"/>
                     <Label Grid.Row="0" Grid.Column="3" Content="Version" HorizontalAlignment="Center"/>
                     <TextBox Grid.Row="0" Grid.Column="4" Name="versionItemTB" Text="4.3" Height="20"/>
                     <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Description" HorizontalAlignment="Center"/>
@@ -92,7 +92,7 @@
                     <RadioButton Grid.Row="2" Grid.Column="1" Name="storyRB" Content="Story" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
                     <RadioButton Grid.Row="2" Grid.Column="2" Name="issueRB" Content="Issue" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
                     <Button Grid.Row="2" Grid.Column="3" Name="AddItemBtn" Content="Add" Width="40" Height="20" Click="AddItemBtn_Click" />
-                    <Button Grid.Row="2" Grid.Column="4" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" />
+                    <Button Grid.Row="2" Grid.Column="4" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" Margin="24,5,25,0" VerticalAlignment="Top" Click="DeleteItemBtn_Click" />
                 </Grid>
             </GroupBox>
         </Grid>

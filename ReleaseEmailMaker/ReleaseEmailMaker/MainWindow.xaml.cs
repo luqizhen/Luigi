@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -77,27 +78,80 @@ namespace ReleaseEmailMaker
         private void AddItemBtn_Click(object sender, RoutedEventArgs e)
         {
             ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionItemTB.Text);
-            
-            if(rv == null)
+            if (rv == null)
             {
                 MessageBox.Show("Please add version first!");
                 return;
             }
 
+            var id = jiraTB.Text;
+            var custom = CustomTB.Text;
+            ReleaseVersion.ItemType type;
             if (bugRB.IsChecked.Value)
             {
-                rv.AddItem(ReleaseVersion.ItemType.BUG, jiraTB.Text, CustomTB.Text);
+                type = ReleaseVersion.ItemType.BUG;
             }
             else if (storyRB.IsChecked.Value)
             {
-                rv.AddItem(ReleaseVersion.ItemType.STORY, jiraTB.Text, CustomTB.Text);
+                type = ReleaseVersion.ItemType.STORY;
             }
             else
             {
-                rv.AddItem(ReleaseVersion.ItemType.ISSUE, jiraTB.Text, CustomTB.Text);
+                type = ReleaseVersion.ItemType.ISSUE;
+            }
+            Task.Run(() =>
+            {
+                try
+                {
+                    rv.AddItem(type, id, custom);
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("ERROR in add item: " + ex);
+                }
+
+                documentTB.Dispatcher.Invoke(() => documentTB.Text = string.Join("\n", ReleaseVersions));
+            });
+
+        }
+
+        private void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionItemTB.Text);
+            if (rv == null)
+            {
+                MessageBox.Show("Please add version first!");
+                return;
             }
 
-            documentTB.Text = string.Join("\n", ReleaseVersions);
+            var id = jiraTB.Text;
+            var custom = CustomTB.Text;
+            ReleaseVersion.ItemType type;
+            if (bugRB.IsChecked.Value)
+            {
+                type = ReleaseVersion.ItemType.BUG;
+            }
+            else if (storyRB.IsChecked.Value)
+            {
+                type = ReleaseVersion.ItemType.STORY;
+            }
+            else
+            {
+                type = ReleaseVersion.ItemType.ISSUE;
+            }
+            Task.Run(() =>
+            {
+                try
+                {
+                    rv.DeleteItem(type, id, custom);
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("ERROR in add item: " + ex);
+                }
+
+                documentTB.Dispatcher.Invoke(() => documentTB.Text = string.Join("\n", ReleaseVersions));
+            });
         }
     }
 }
