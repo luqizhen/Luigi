@@ -35,6 +35,19 @@ namespace ReleaseEmailMaker
                 if (!string.IsNullOrWhiteSpace(item))
                 {
                     item = ID + "\t" + item;
+                    if (type == ItemType.AUTO)
+                    {
+                        type = JiraManager.Instance.GetType(ID);
+                        var status = JiraManager.Instance.GetStatus(ID);
+                        if (status?.ID == 1 || status?.ID == 2)
+                        {
+                            type = ItemType.ISSUE;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Can't get " + ID + "from JIRA.");
                 }
             }
             else if (!string.IsNullOrWhiteSpace(custom))
@@ -47,6 +60,7 @@ namespace ReleaseEmailMaker
                 return;
             }
 
+
             switch (type)
             {
                 case ItemType.BUG:
@@ -58,8 +72,10 @@ namespace ReleaseEmailMaker
                 case ItemType.ISSUE:
                     issueItems.Add(item);
                     break;
+                case ItemType.AUTO:
+                case ItemType.UNKNOWN:
                 default:
-                    break;
+                    throw new Exception("Can't detect item type.");
             }
         }
 
@@ -72,6 +88,15 @@ namespace ReleaseEmailMaker
                 if (!string.IsNullOrWhiteSpace(item))
                 {
                     item = ID + "\t" + item;
+                    if (type == ItemType.AUTO)
+                    {
+                        type = JiraManager.Instance.GetType(ID);
+                        var status = JiraManager.Instance.GetStatus(ID);
+                        if (status?.ID == 1 || status?.ID == 2)
+                        {
+                            type = ItemType.ISSUE;
+                        }
+                    }
                 }
             }
             else if (!string.IsNullOrWhiteSpace(custom))
@@ -99,8 +124,10 @@ namespace ReleaseEmailMaker
                         issueItems.Remove(item);
                     }
                     break;
+                case ItemType.AUTO:
+                case ItemType.UNKNOWN:
                 default:
-                    break;
+                    throw new Exception("Can't detect item type.");
             }
         }
 
@@ -154,7 +181,9 @@ namespace ReleaseEmailMaker
         {
             BUG,
             STORY,
-            ISSUE
+            ISSUE,
+            AUTO,
+            UNKNOWN
         }
 
         public enum VersionType

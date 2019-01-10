@@ -88,11 +88,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InternalTestPage.xaml.cs">
+      <DependentUpon>InternalTestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JiraManager.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProgressMonitorPage.xaml.cs">
+      <DependentUpon>ProgressMonitorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReleaseNotePage.xaml.cs">
+      <DependentUpon>ReleaseNotePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReleaseVersion.cs" />
+    <Page Include="InternalTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,6 +123,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ProgressMonitorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReleaseNotePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
