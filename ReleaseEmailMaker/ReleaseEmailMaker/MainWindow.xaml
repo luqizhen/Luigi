@@ -91,7 +91,7 @@
                     <RadioButton Grid.Row="2" Grid.Column="0" Name="bugRB" Content="Bug" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center" IsChecked="True"/>
                     <RadioButton Grid.Row="2" Grid.Column="1" Name="storyRB" Content="Story" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
                     <RadioButton Grid.Row="2" Grid.Column="2" Name="issueRB" Content="Issue" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="2" Grid.Column="3" Name="AddItemBtn" Content="Add" Width="40" Height="20" />
+                    <Button Grid.Row="2" Grid.Column="3" Name="AddItemBtn" Content="Add" Width="40" Height="20" Click="AddItemBtn_Click" />
                     <Button Grid.Row="2" Grid.Column="4" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" />
                 </Grid>
             </GroupBox>

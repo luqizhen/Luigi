@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ReleaseEmailMaker
 {
@@ -60,20 +49,47 @@ namespace ReleaseEmailMaker
 
         private void AddVersionBtn_Click(object sender, RoutedEventArgs e)
         {
+            ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionTB.Text);
+            if (rv == null)
+            {
+                rv = new ReleaseVersion(ProductName);
+                ReleaseVersions.Add(rv);
+            }
+
             var packageLocation = locationTB.Text;
-            ReleaseVersion rv = new ReleaseVersion(ProductName);
             rv.UpdateLocation(locationTB.Text);
             rv.UpdateVersion(ReleaseVersion.VersionType.NONE, versionTB.Text);
             rv.UpdateVersion(ReleaseVersion.VersionType.DEBUG, debugVersionTB.Text);
             rv.UpdateVersion(ReleaseVersion.VersionType.RELEASE, releaseVersionTB.Text);
-            ReleaseVersions.Add(rv);
-            documentTB.Text = ReleaseVersions.ToString();
+            documentTB.Text = string.Join("\n", ReleaseVersions);
         }
 
         private void DeleteVersionBtn_Click(object sender, RoutedEventArgs e)
         {
-            ReleaseVersions.Remove(_releaseVersions.Find(p=>p.VersionNumber == versionTB.Text));
-            documentTB.Text = ReleaseVersions.ToString();
+            ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionTB.Text);
+            if (rv != null)
+            {
+                ReleaseVersions.Remove(rv);
+            }
+            documentTB.Text = string.Join("\n", ReleaseVersions);
+        }
+
+        private void AddItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionItemTB.Text);
+            
+            if (bugRB.IsChecked.Value)
+            {
+                rv.AddItem(ReleaseVersion.ItemType.BUG, jiraTB.Text, CustomTB.Text);
+            }
+            else if (storyRB.IsChecked.Value)
+            {
+                rv.AddItem(ReleaseVersion.ItemType.STORY, jiraTB.Text, CustomTB.Text);
+            }
+            else
+            {
+                rv.AddItem(ReleaseVersion.ItemType.ISSUE, jiraTB.Text, CustomTB.Text);
+            }
         }
     }
 }

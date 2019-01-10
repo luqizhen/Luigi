@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ReleaseEmailMaker
 {
@@ -26,16 +25,20 @@ namespace ReleaseEmailMaker
         public string ReleaseVersionNumber { get; private set; }
         public string Location { get; private set; }
 
-        public void AddItem(ItemType type, string ID, string title)
+        public void AddItem(ItemType type, string ID, string custom)
         {
             string item = null;
-            if (string.IsNullOrWhiteSpace(ID))
+            if (!string.IsNullOrWhiteSpace(ID))
             {
-                item = title;
+                item = JiraManager.Instance.GetTitle(ID);
+                if (!string.IsNullOrWhiteSpace(item))
+                {
+                    item = ID + "\t" + item;
+                }
             }
-            else
+            else if (!string.IsNullOrWhiteSpace(custom))
             {
-                item = ID + "\t" + title;
+                item = custom;
             }
 
             switch (type)
@@ -54,11 +57,11 @@ namespace ReleaseEmailMaker
             }
         }
 
-        public string Print()
+        public override string ToString()
         {
-            string issues = null;
-            string stories = null;
-            string bugs = null;
+            string bugs = bugItems.Count > 0 ? string.Join("\n", bugItems) : "None";
+            string stories = storyItems.Count > 0 ? string.Join("\n", storyItems) : "None";
+            string issues = issueItems.Count > 0 ? string.Join("\n", issueItems) : "None";
 
             // generate issues/bugs/stories string
 
