@@ -32,13 +32,11 @@ namespace ReleaseEmailMaker
 
         private void ExcaliburRB_Checked(object sender, RoutedEventArgs e)
         {
-            _format = Constants.FORMAT_EXCALIBUR;
             ProductName = "Excalibur";
         }
 
         private void OsriRB_Checked(object sender, RoutedEventArgs e)
         {
-            _format = Constants.FORMAT_OSRI;
             ProductName = "OSRI";
         }
         
@@ -60,8 +58,12 @@ namespace ReleaseEmailMaker
         private void AddVersionBtn_Click(object sender, RoutedEventArgs e)
         {
             var packageLocation = locationTB.Text;
-            var version = versionTB.Text;
-            ReleaseVersion rv = new ReleaseVersion(ProductName, version, _format); 
+            ReleaseVersion rv = new ReleaseVersion(ProductName);
+            rv.UpdateLocation(locationTB.Text);
+            rv.UpdateVersion(ReleaseVersion.VersionType.NONE, versionTB.Text);
+            rv.UpdateVersion(ReleaseVersion.VersionType.DEBUG, debugVersionTB.Text);
+            rv.UpdateVersion(ReleaseVersion.VersionType.RELEASE, releaseVersionTB.Text);
+            documentTB.Text = rv.Print();
         }
     }
 }

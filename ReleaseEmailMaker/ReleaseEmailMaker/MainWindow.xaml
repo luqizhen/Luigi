@@ -23,7 +23,7 @@
             <Button Name="HelpBtn" Width="50" HorizontalAlignment="Left" Background="#0099FF" BorderThickness="0" Click="HelpBtn_Click">
                 <Label Content="HELP" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dell Release Assistant" FontSize="18" Foreground="White"/>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dell Release Assistant" FontSize="15" Foreground="White"/>
             <Button Name="ExitBtn" Width="50" HorizontalAlignment="Right" Background="#0099FF" BorderThickness="0" Click="Exit_Click">
                 <Label Content="EXIT" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
@@ -57,9 +57,9 @@
                     <Label Content="Package Loc." Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
                     <TextBox Name="locationTB" Text="Akamai" Height="20" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>
                     <Label Content="Debug Ver." Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="debugVersion" Height="20" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    <TextBox Name="debugVersionTB" Height="20" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
                     <Label Content="Release Ver." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="releaseVersion" Height="20" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    <TextBox Name="releaseVersionTB" Height="20" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
                     <Label Content="Version" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"/>
                     <TextBox Name="versionTB" Text="4.3" Height="20" Grid.Row="3" Grid.Column="1"/>
                     <Button Grid.Row="3" Grid.Column="2" Name="AddVersionBtn" Content="Add" Width="40" Height="20" Click="AddVersionBtn_Click" />

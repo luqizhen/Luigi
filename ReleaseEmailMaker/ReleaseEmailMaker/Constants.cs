@@ -8,11 +8,23 @@ namespace ReleaseEmailMaker
 {
     class Constants
     {
-        public const string FORMAT_EXCALIBUR = @"
-{0}(debug) and {1}(release), find it on {2} server.
-";
-        public const string FORMAT_OSRI = @"
-{0}(debug) and {1}(release), find it on {2} server.
+        public const string FORMAT = @"
+The {0} {1} Version {2} (debug build) and {3} (release build) are ready, the packages are in the {4} now.
+
+{0} {1}
+{2} (debug build) and {3} (release build)：
+
+The change list as follows:
+
+Fix Bugs: 
+{5}
+
+Completed Stories:
+{6}
+
+Known issues:
+{7}
+
 ";
     }
 }
