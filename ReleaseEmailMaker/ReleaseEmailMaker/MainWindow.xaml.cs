@@ -28,7 +28,10 @@ namespace ReleaseEmailMaker
 
         private string _format = string.Empty;
 
-        public string ProductName { get; set; }
+        internal string ProductName { get; set; }
+
+        internal List<ReleaseVersion> ReleaseVersions { get => _releaseVersions; set => _releaseVersions = value; }
+        private List<ReleaseVersion> _releaseVersions = new List<ReleaseVersion>();
 
         private void ExcaliburRB_Checked(object sender, RoutedEventArgs e)
         {
@@ -63,7 +66,14 @@ namespace ReleaseEmailMaker
             rv.UpdateVersion(ReleaseVersion.VersionType.NONE, versionTB.Text);
             rv.UpdateVersion(ReleaseVersion.VersionType.DEBUG, debugVersionTB.Text);
             rv.UpdateVersion(ReleaseVersion.VersionType.RELEASE, releaseVersionTB.Text);
-            documentTB.Text = rv.Print();
+            ReleaseVersions.Add(rv);
+            documentTB.Text = ReleaseVersions.ToString();
+        }
+
+        private void DeleteVersionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReleaseVersions.Remove(_releaseVersions.Find(p=>p.VersionNumber == versionTB.Text));
+            documentTB.Text = ReleaseVersions.ToString();
         }
     }
 }

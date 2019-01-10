@@ -63,7 +63,7 @@
                     <Label Content="Version" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"/>
                     <TextBox Name="versionTB" Text="4.3" Height="20" Grid.Row="3" Grid.Column="1"/>
                     <Button Grid.Row="3" Grid.Column="2" Name="AddVersionBtn" Content="Add" Width="40" Height="20" Click="AddVersionBtn_Click" />
-                    <Button Grid.Row="3" Grid.Column="3" Name="DeleteVersionBtn" Content="Del" Width="40" Height="20" />
+                    <Button Grid.Row="3" Grid.Column="3" Name="DeleteVersionBtn" Content="Del" Width="40" Height="20" Click="DeleteVersionBtn_Click" />
                 </Grid>
             </GroupBox>
         </Grid>
