@@ -61,7 +61,19 @@ namespace ReleaseEmailMaker
 
             // generate issues/bugs/stories string
 
-            return string.Format(Constants.FORMAT, productName, version, debugVersion, releaseVersion, location, bugs, stories, issues);
+            if (!string.IsNullOrWhiteSpace(debugVersion) && !string.IsNullOrWhiteSpace(releaseVersion))
+            {
+                return string.Format(Constants.FORMAT_TWO_VERSIONS, productName, version, debugVersion, releaseVersion, location, bugs, stories, issues);
+            }
+            else if (!string.IsNullOrWhiteSpace(debugVersion))
+            {
+                return string.Format(Constants.FORMAT_ONE_VERSION, productName, version, debugVersion, "debug", location, bugs, stories, issues);
+            }
+            else if (!string.IsNullOrWhiteSpace(releaseVersion))
+            {
+                return string.Format(Constants.FORMAT_ONE_VERSION, productName, version, releaseVersion, "release", location, bugs, stories, issues);
+            }
+            return "Please enter debug/release version";
         }
 
         internal void UpdateLocation(string text)
