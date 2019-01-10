@@ -99,6 +99,13 @@ namespace ReleaseEmailMaker
             {
                 type = ReleaseVersion.ItemType.ISSUE;
             }
+
+            if (!string.IsNullOrWhiteSpace(id) && !JiraManager.Instance.IsLogin)
+            {
+                MessageBox.Show("Please login JIRA first.");
+                return;
+            }
+
             Task.Run(() =>
             {
                 try
@@ -152,6 +159,12 @@ namespace ReleaseEmailMaker
 
                 documentTB.Dispatcher.Invoke(() => documentTB.Text = string.Join("\n", ReleaseVersions));
             });
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
         }
     }
 }

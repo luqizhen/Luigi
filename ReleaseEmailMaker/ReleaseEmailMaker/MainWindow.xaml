@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ReleaseEmailMaker"
         mc:Ignorable="d"
         WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Title="Release Email Maker" Height="600" Width="800">
     <Grid>
@@ -20,13 +21,13 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#0099FF" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-            <Button Name="HelpBtn" Width="50" HorizontalAlignment="Left" Background="#0099FF" BorderThickness="0" Click="HelpBtn_Click">
-                <Label Content="HELP" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Name="LoginBtn" Width="50" HorizontalAlignment="Left" Background="#0099FF" BorderThickness="0" Click="Login_Click">
+                <Label Content="LOGIN" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dell Release Assistant" FontSize="15" Foreground="White"/>
             <Button Name="ExitBtn" Width="50" HorizontalAlignment="Right" Background="#0099FF" BorderThickness="0" Click="Exit_Click">
                 <Label Content="EXIT" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dell Release Assistant" FontSize="15" Foreground="White"/>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0">
             <GroupBox Header="Project">
