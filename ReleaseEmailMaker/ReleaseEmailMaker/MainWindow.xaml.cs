@@ -78,6 +78,12 @@ namespace ReleaseEmailMaker
         {
             ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionItemTB.Text);
             
+            if(rv == null)
+            {
+                MessageBox.Show("Please add version first!");
+                return;
+            }
+
             if (bugRB.IsChecked.Value)
             {
                 rv.AddItem(ReleaseVersion.ItemType.BUG, jiraTB.Text, CustomTB.Text);
@@ -90,6 +96,8 @@ namespace ReleaseEmailMaker
             {
                 rv.AddItem(ReleaseVersion.ItemType.ISSUE, jiraTB.Text, CustomTB.Text);
             }
+
+            documentTB.Text = string.Join("\n", ReleaseVersions);
         }
     }
 }

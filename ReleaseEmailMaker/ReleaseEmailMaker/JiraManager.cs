@@ -1,4 +1,6 @@
-﻿namespace ReleaseEmailMaker
+﻿using System.Net;
+
+namespace ReleaseEmailMaker
 {
     internal class JiraManager
     {
@@ -23,6 +25,7 @@
         private JiraManager()
         {
             _jira = new Jira.SDK.Jira();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             _jira.Connect(URL,USERNAME,PASSWORD);
         }
 
