@@ -30,7 +30,7 @@
             <TabItem Header="Internal Test">
                 <Frame Source="InternalTestPage.xaml"/>
             </TabItem>
-            <TabItem Header="Release Note">
+            <TabItem Header="Release Note" IsSelected="True">
                 <Frame Source="ReleaseNotePage.xaml"/>
             </TabItem>
         </TabControl>

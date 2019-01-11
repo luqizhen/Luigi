@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Atlassian.Jira;
+using System;
+using System.Collections.Generic;
 using System.Net;
-using Jira.SDK;
-using Jira.SDK.Domain;
+using System.Linq;
 
 namespace ReleaseEmailMaker
 {
@@ -20,7 +21,7 @@ namespace ReleaseEmailMaker
             }
         }
 
-        private Jira.SDK.Jira _jira;
+        private Jira _jira;
         private bool _isLogin = false;
         private Issue _tempissue;
         private string _tempID;
@@ -30,7 +31,6 @@ namespace ReleaseEmailMaker
 
         private JiraManager()
         {
-            _jira = new Jira.SDK.Jira();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
@@ -44,7 +44,7 @@ namespace ReleaseEmailMaker
             Issue issue = null;
             try
             {
-                issue = _jira.GetIssue(jiraID.ToUpper());
+                issue = _jira.Issues.GetIssueAsync(jiraID).Result;
                 _tempissue = issue;
                 _tempID = jiraID;
                 return _tempissue;
@@ -57,37 +57,80 @@ namespace ReleaseEmailMaker
 
         public string GetTitle(string jiraID, bool useLocal = true)
         {
-            return GetIssue(jiraID, useLocal)?.Summary;
+            var issue = GetIssue(jiraID, useLocal);
+            return issue.Summary;
         }
 
-        internal ReleaseVersion.ItemType GetType(string jiraID, bool useLocal = true)
+        public ReleaseVersion.ItemType GetType(string jiraID, bool useLocal = true)
         {
-            var id = GetIssue(jiraID, useLocal)?.IssueType.ID;
-            if (id.HasValue)
+            var issue = GetIssue(jiraID, useLocal);
+            var type = issue.Type.Name.ToUpper();
+            if (type == "BUG")
             {
-                return id == 1 ? ReleaseVersion.ItemType.BUG : ReleaseVersion.ItemType.STORY;
+                return ReleaseVersion.ItemType.BUG;
             }
             else
             {
-                return ReleaseVersion.ItemType.UNKNOWN;
+                return ReleaseVersion.ItemType.STORY;
             }
         }
 
-        internal DateTime? GetCreatedTime(string jiraID, bool useLocal = true)
+        public DateTime? GetCreatedTime(string jiraID, bool useLocal = true)
         {
-            return GetIssue(jiraID, useLocal)?.Created;
+            var issue = GetIssue(jiraID, useLocal);
+            return issue.Created;
         }
 
-        internal Status GetStatus(string jiraID, bool useLocal = true)
+        public IssueStatus GetStatus(string jiraID, bool useLocal = true)
         {
-            return GetIssue(jiraID, useLocal)?.Status;
+            var issue = GetIssue(jiraID, useLocal);
+            return issue.Status;
         }
+
+        public string GetSprint(string jiraID, bool useLocal = true)
+        {
+            var issue = GetIssue(jiraID, useLocal);
+            var sprintName = issue.CustomFields.GetCascadingSelectField("sprint").ParentOption;
+            return sprintName;
+        }
+        
+        public List<Issue> GetIssuesInSprint(string sprintName)
+        {
+            var issues = from i in _jira.Issues.Queryable
+                         where i.CustomFields.GetCascadingSelectField("sprint").ParentOption == sprintName
+                         orderby i.JiraIdentifier
+                         select i;
+            return issues.ToList();
+        }
+
+        public List<Issue> GetIssuesFinishInThisWeek(string version = null)
+        {
+            var issues = _jira.Filters.GetIssuesFromFavoriteAsync("finish in this week").Result;
+
+            if(version == null)
+            {
+                return issues.ToList();
+            }
+            else
+            {
+                return issues.Where();
+            }
+        }
+
+        public bool IsDone(string jiraID, bool useLocal = true)
+        {
+            var issue = GetIssue(jiraID, useLocal);
+            return issue.Resolution.Name.ToUpper() == "DONE";
+        }
+
+
 
         internal bool Login(string username, string password)
         {
             try
             {
-                _jira.Connect(URL, username, password);
+                _jira = Jira.CreateRestClient(URL, username,password);
+                var issues = GetIssuesFinishInThisWeek();
             }
             catch (Exception)
             {

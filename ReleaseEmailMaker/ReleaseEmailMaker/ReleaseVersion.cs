@@ -38,8 +38,7 @@ namespace ReleaseEmailMaker
                     if (type == ItemType.AUTO)
                     {
                         type = JiraManager.Instance.GetType(ID);
-                        var status = JiraManager.Instance.GetStatus(ID);
-                        if (status?.ID == 1 || status?.ID == 2)
+                        if (!JiraManager.Instance.IsDone(ID))
                         {
                             type = ItemType.ISSUE;
                         }
@@ -91,8 +90,7 @@ namespace ReleaseEmailMaker
                     if (type == ItemType.AUTO)
                     {
                         type = JiraManager.Instance.GetType(ID);
-                        var status = JiraManager.Instance.GetStatus(ID);
-                        if (status?.ID == 1 || status?.ID == 2)
+                        if (!JiraManager.Instance.IsDone(ID))
                         {
                             type = ItemType.ISSUE;
                         }

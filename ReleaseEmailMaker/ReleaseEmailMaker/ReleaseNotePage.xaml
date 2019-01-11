@@ -89,7 +89,7 @@
                     </Grid>
                     <CheckBox Grid.Row="2" Grid.Column="0" Name="autoCB" Content="Auto" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center" IsChecked="True" Checked="AutoCB_Checked" Unchecked="AutoCB_Checked"/>
                     <Button Grid.Row="2" Grid.Column="2" Name="AddItemBtn" Content="Add" Width="40" Height="20" Click="AddItemBtn_Click" />
-                    <Button Grid.Row="2" Grid.Column="3" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" Margin="24,5,25,0" VerticalAlignment="Top" Click="DeleteItemBtn_Click" />
+                    <Button Grid.Row="2" Grid.Column="3" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" Click="DeleteItemBtn_Click" />
                 </Grid>
             </GroupBox>
         </Grid>
