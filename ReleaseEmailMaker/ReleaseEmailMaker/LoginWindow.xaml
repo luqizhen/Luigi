@@ -28,7 +28,7 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Password"/>
-            <TextBox x:Name="passwordTB" Text="5qgTfvu7eniE9WSd^!Np0*tr" VerticalAlignment="Center" Width="120"/>
+            <TextBox x:Name="passwordTB" Text="********" VerticalAlignment="Center" Width="120"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Height="25" Width="60" Margin="120,0,0,0" Background="#0099FF" Content="Login" FontSize="15" Foreground="White" Click="Button_Click"/>
