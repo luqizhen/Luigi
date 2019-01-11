@@ -51,5 +51,15 @@ Thanks!
 
 Best regards,
 ";
+
+        public static List<string> EMAIL_TO_EXCALIBUR = new List<string>()
+        {
+
+        };
+
+        public static List<string> EMAIL_CC_EXCALIBUR = new List<string>()
+        {
+
+        };
     }
 }

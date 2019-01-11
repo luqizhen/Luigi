@@ -189,6 +189,19 @@ namespace ReleaseEmailMaker
             {
                 releaseVersionTB.Text = version + ".";
             }
+            if (!debugVersionTB.Text.EndsWith(".") && releaseVersionTB.IsFocused)
+            {
+                var rvs = debugVersionTB.Text.Split('.');
+                rvs[rvs.Length - 1] = (int.Parse(rvs[rvs.Length - 1]) + 1).ToString();
+                releaseVersionTB.Text = string.Join(".", rvs);
+            }
+
+            if (!releaseVersionTB.Text.EndsWith(".") && debugVersionTB.IsFocused)
+            {
+                var rvs = releaseVersionTB.Text.Split('.');
+                rvs[rvs.Length - 1] = (int.Parse(rvs[rvs.Length - 1]) - 1).ToString();
+                debugVersionTB.Text = string.Join(".", rvs);
+            }
         }
 
         private void UpdateDocoment()
@@ -211,8 +224,8 @@ namespace ReleaseEmailMaker
                 title += ReleaseVersions.Count > 1 ? "are " : "is ";
                 title += "ready";
                 docTitleTB.Text = title;
-                docToTB.Text = null;
-                docCCTB.Text = null;
+                docToTB.Text = string.Join(", ", Constants.EMAIL_TO_EXCALIBUR);
+                docCCTB.Text = string.Join(", ", Constants.EMAIL_CC_EXCALIBUR);
                 documentTB.Text = Constants.FORMAT_EMAIL_START + string.Join("\n", ReleaseVersions) + Constants.FORMAT_EMAIL_END;
                 docEndTB.Text = "Luigi Lu";
             });
@@ -229,16 +242,25 @@ namespace ReleaseEmailMaker
 
         private void SendBtn_Click(object sender, RoutedEventArgs e)
         {
+            var emailTo = docToTB.Text;
+            var emailCC = docCCTB.Text;
             var emailTitle = docTitleTB.Text;
             var emailContent = documentTB.Text + docEndTB.Text;
 
-            if(string.IsNullOrWhiteSpace(emailTitle) ||
+            if (string.IsNullOrWhiteSpace(emailTo) &&
+                string.IsNullOrWhiteSpace(emailCC))
+            {
+                MessageBox.Show("To and CC can't be both blank!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(emailTitle) ||
                 string.IsNullOrWhiteSpace(emailContent))
             {
                 MessageBox.Show("Title/Content can't be blank!");
                 return;
             }
-            MessageBox.Show(emailTitle + "\n\n" + emailContent, "Please confirm the email!!!");
+            MessageBox.Show("Title: " + emailTitle + "\n\n"+ "To: " + emailTo +"\n" + "CC: " + emailCC + "\n\n" + emailContent, "Please confirm the email!!!");
         }
     }
 }
