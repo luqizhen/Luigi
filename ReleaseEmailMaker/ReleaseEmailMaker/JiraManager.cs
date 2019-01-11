@@ -113,7 +113,7 @@ namespace ReleaseEmailMaker
             }
             else
             {
-                return issues.Where();
+                return issues.Where(p=> p.FixVersions == version || ((p.FixVersions == null || p.FixVersions.Count==0) && p.AffectsVersions == version)).ToList();
             }
         }
 
@@ -130,7 +130,6 @@ namespace ReleaseEmailMaker
             try
             {
                 _jira = Jira.CreateRestClient(URL, username,password);
-                var issues = GetIssuesFinishInThisWeek();
             }
             catch (Exception)
             {

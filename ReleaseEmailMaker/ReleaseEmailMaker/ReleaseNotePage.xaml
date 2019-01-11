@@ -6,97 +6,137 @@
       xmlns:local="clr-namespace:ReleaseEmailMaker"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="800"
       Title="ReleaseEmailPage">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="4*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0">
-            <GroupBox Header="Project">
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <RadioButton x:Name="excaliburRB" Content=" EXCALIBUR" IsChecked="True" Checked="ExcaliburRB_Checked"/>
-                    <RadioButton x:Name="osriRB" Content=" OSRI" Checked="OsriRB_Checked"/>
-                    <RadioButton x:Name="customProjectRB" Checked="CustomProjectRB_Checked">
-                        <TextBox Name="customProjectTB" Text="RCC" Width="70"/>
-                    </RadioButton>
-                </StackPanel>
-            </GroupBox>
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="1">
-            <GroupBox Name="VersionGroup" Header="Add Version">
-                <Grid VerticalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Package Loc." Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="locationTB" Text="Akamai" Height="20" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>
-                    <Label Content="Debug Ver." Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="debugVersionTB" Height="20" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="4.3.0.1000"/>
-                    <Label Content="Release Ver." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-                    <TextBox Name="releaseVersionTB" Height="20" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Text="4.3.0.1001"/>
-                    <Label Content="Version" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"/>
-                    <TextBox Name="versionTB" Text="4.3" Height="20" Grid.Row="3" Grid.Column="1"/>
-                    <Button Grid.Row="3" Grid.Column="2" Name="AddVersionBtn" Content="Add" Width="40" Height="20" Click="AddVersionBtn_Click" />
-                    <Button Grid.Row="3" Grid.Column="3" Name="DeleteVersionBtn" Content="Del" Width="40" Height="20" Click="DeleteVersionBtn_Click" />
-                </Grid>
-            </GroupBox>
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="2">
-            <GroupBox Name="ItemGroup" Header="Add JIRA/Custom Item">
-                <Grid VerticalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="JIRA ID" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Name="jiraTB" Height="20" Text="EXCALIBUR-4000"/>
-                    <Label Grid.Row="0" Grid.Column="2" Content="Version" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="3" Name="versionItemTB" Text="4.3" Height="20"/>
-                    <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Description" HorizontalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="CustomTB" Height="60" TextWrapping="Wrap"/>
-                    <Grid Grid.Row="2" Grid.Column="1">
+        <Grid Grid.Row="0" Name="workGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="24*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <GroupBox Header="Project">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <RadioButton x:Name="excaliburRB" Content=" EXCALIBUR" IsChecked="True" Checked="ExcaliburRB_Checked"/>
+                        <RadioButton x:Name="osriRB" Content=" OSRI" Checked="OsriRB_Checked"/>
+                        <RadioButton x:Name="customProjectRB" Checked="CustomProjectRB_Checked">
+                            <TextBox Name="customProjectTB" Text="RCC" Width="70"/>
+                        </RadioButton>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <GroupBox Name="VersionGroup" Header="Add Version">
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <RadioButton Grid.Column="0" Name="bugRB" Content="Bug" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
-                        <RadioButton Grid.Column="1" Name="storyRB" Content="Story" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
-                        <RadioButton Grid.Column="2" Name="issueRB" Content="Issue" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Content="Package Loc." Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                        <TextBox Name="locationTB" Text="Akamai" Height="20" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"/>
+                        <Label Content="Debug Ver." Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                        <TextBox Name="debugVersionTB" Height="20" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="4.3." GotFocus="versionTB_GotFocus"/>
+                        <Label Content="Release Ver." Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                        <TextBox Name="releaseVersionTB" Height="20" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Text="4.3." GotFocus="versionTB_GotFocus"/>
+                        <Label Content="Version" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"/>
+                        <TextBox Name="versionTB" Text="4.3" Height="20" Grid.Row="3" Grid.Column="1"/>
+                        <Button Grid.Row="3" Grid.Column="2" Name="AddVersionBtn" Content="Add" Width="40" Height="20" Click="AddVersionBtn_Click" />
+                        <Button Grid.Row="3" Grid.Column="3" Name="DeleteVersionBtn" Content="Del" Width="40" Height="20" Click="DeleteVersionBtn_Click" />
                     </Grid>
-                    <CheckBox Grid.Row="2" Grid.Column="0" Name="autoCB" Content="Auto" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center" IsChecked="True" Checked="AutoCB_Checked" Unchecked="AutoCB_Checked"/>
-                    <Button Grid.Row="2" Grid.Column="2" Name="AddItemBtn" Content="Add" Width="40" Height="20" Click="AddItemBtn_Click" />
-                    <Button Grid.Row="2" Grid.Column="3" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" Click="DeleteItemBtn_Click" />
-                </Grid>
-            </GroupBox>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="2">
+                <GroupBox Name="ItemGroup" Header="Add JIRA/Custom Item">
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="JIRA ID" HorizontalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="jiraTB" Height="20" Text="EXCALIBUR-4000"/>
+                        <Label Grid.Row="0" Grid.Column="2" Content="Version" HorizontalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" Name="versionItemTB" Text="4.3" Height="20"/>
+                        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Description" HorizontalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="CustomTB" Height="60" TextWrapping="Wrap"/>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Grid.Column="0" Name="bugRB" Content="Bug" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+                            <RadioButton Grid.Column="1" Name="storyRB" Content="Story" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+                            <RadioButton Grid.Column="2" Name="issueRB" Content="Issue" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        <CheckBox Grid.Row="2" Grid.Column="0" Name="autoCB" Content="Auto" Height="20" VerticalContentAlignment="Center" HorizontalAlignment="Center" IsChecked="True" Checked="AutoCB_Checked" Unchecked="AutoCB_Checked"/>
+                        <Button Grid.Row="2" Grid.Column="2" Name="AddItemBtn" Content="Add" Width="40" Height="20" Click="AddItemBtn_Click" />
+                        <Button Grid.Row="2" Grid.Column="3" Name="DeleteItemBtn" Content="Del" Width="40" Height="20" Click="DeleteItemBtn_Click" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                <GroupBox Header="View">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="13*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="16*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="To" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="CC" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Title" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="Content" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Sender" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="docToTB" Margin="5,5,5,5"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Name="docCCTB" Margin="5,5,5,5"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Name="docTitleTB" Margin="5,5,5,5"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="documentTB" VerticalScrollBarVisibility="Auto" Margin="5,5,5,5"/>
+                        <Grid Grid.Row="4" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Name="docEndTB" Margin="5,5,5,5"/>
+                            <Button Grid.Column="1" Name="sendBtn" Margin="5,5,5,5" Content="Send" Click="SendBtn_Click"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-            <GroupBox Header="View">
-                <TextBox Name="documentTB" IsReadOnly="True" Background="#EEEEEE"/>
-            </GroupBox>
+        <Grid Grid.Row="1">
+            <StatusBar Background="White">
+                <TextBlock Name="statusTB"/>
+            </StatusBar>
         </Grid>
     </Grid>
 </Page>

@@ -78,6 +78,18 @@ namespace ReleaseEmailMaker
             }
         }
 
+        public void UpdateItemsByVersion(string version = null)
+        {
+            if(version == null)
+            {
+                version = VersionNumber;
+            }
+            JiraManager.Instance.GetIssuesFinishInThisWeek(version).ForEach(p =>
+            {
+                AddItem(ItemType.AUTO, p.Key.Value, null);
+            });
+        }
+
         public void DeleteItem(ItemType type, string ID, string custom)
         {
             string item = null;
@@ -131,6 +143,9 @@ namespace ReleaseEmailMaker
 
         public override string ToString()
         {
+            bugItems.Sort();
+            storyItems.Sort();
+            issueItems.Sort();
             string bugs = bugItems.Count > 0 ? string.Join("\n", bugItems) : "None";
             string stories = storyItems.Count > 0 ? string.Join("\n", storyItems) : "None";
             string issues = issueItems.Count > 0 ? string.Join("\n", issueItems) : "None";

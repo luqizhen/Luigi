@@ -1,4 +1,6 @@
-﻿namespace ReleaseEmailMaker
+﻿using System.Collections.Generic;
+
+namespace ReleaseEmailMaker
 {
     class Constants
     {
@@ -19,6 +21,7 @@ Known issues:
 {7}
 
 ";
+
         public const string FORMAT_ONE_VERSION = @"The {0} {1} Version {2} ({3} build) is ready, the package in in the {4} now.
 
 {0} {1}
@@ -35,6 +38,18 @@ Completed Stories:
 Known issues:
 {7}
 
+";
+
+        public const string FORMAT_EMAIL_START = @"Dell - Internal Use - Confidential 
+
+Hi All,
+
+";
+
+        public const string FORMAT_EMAIL_END = @"
+Thanks!
+
+Best regards,
 ";
     }
 }

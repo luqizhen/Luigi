@@ -49,37 +49,59 @@ namespace ReleaseEmailMaker
 
         private void AddVersionBtn_Click(object sender, RoutedEventArgs e)
         {
-            ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionTB.Text);
-            if (rv == null)
+            TurnAllButton(false);
+            if (!JiraManager.Instance.IsLogin)
             {
-                rv = new ReleaseVersion(ProductName);
-                ReleaseVersions.Add(rv);
+                MessageBox.Show("Please login JIRA first.");
+                TurnAllButton(true);
+                return;
             }
 
-            var packageLocation = locationTB.Text;
-            rv.UpdateLocation(locationTB.Text);
-            rv.UpdateVersion(ReleaseVersion.VersionType.NONE, versionTB.Text);
-            rv.UpdateVersion(ReleaseVersion.VersionType.DEBUG, debugVersionTB.Text);
-            rv.UpdateVersion(ReleaseVersion.VersionType.RELEASE, releaseVersionTB.Text);
-            documentTB.Text = string.Join("\n", ReleaseVersions);
+            string location = locationTB.Text;
+            string version = versionTB.Text;
+            string debugVersion = debugVersionTB.Text;
+            string releaseVersion = releaseVersionTB.Text;
+
+            Task.Run(() =>
+            {
+                ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == version);
+                if (rv == null)
+                {
+                    rv = new ReleaseVersion(ProductName);
+                    ReleaseVersions.Add(rv);
+                }
+
+                rv.UpdateLocation(location);
+                rv.UpdateVersion(ReleaseVersion.VersionType.NONE, version);
+                rv.UpdateVersion(ReleaseVersion.VersionType.DEBUG, debugVersion);
+                rv.UpdateVersion(ReleaseVersion.VersionType.RELEASE, releaseVersion);
+                rv.UpdateItemsByVersion();
+                UpdateDocoment();
+                TurnAllButton(true);
+            });
         }
+
 
         private void DeleteVersionBtn_Click(object sender, RoutedEventArgs e)
         {
+            TurnAllButton(false);
             ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionTB.Text);
             if (rv != null)
             {
                 ReleaseVersions.Remove(rv);
             }
             documentTB.Text = string.Join("\n", ReleaseVersions);
+            TurnAllButton(true);
         }
 
         private void ChangeItem(bool isAdd)
         {
+            TurnAllButton(false);
             ReleaseVersion rv = ReleaseVersions.Find(p => p.VersionNumber == versionItemTB.Text);
             if (rv == null)
             {
                 MessageBox.Show("Please add version first!");
+                TurnAllButton(true);
                 return;
             }
 
@@ -105,12 +127,14 @@ namespace ReleaseEmailMaker
             else
             {
                 MessageBox.Show("Please choose one type or use AUTO mode.");
+                TurnAllButton(true);
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(id) && !JiraManager.Instance.IsLogin)
             {
                 MessageBox.Show("Please login JIRA first.");
+                TurnAllButton(true);
                 return;
             }
 
@@ -131,10 +155,9 @@ namespace ReleaseEmailMaker
                 {
                     MessageBox.Show("ERROR in add/delete item: " + ex);
                 }
-
-                documentTB.Dispatcher.Invoke(() => documentTB.Text = string.Join("\n", ReleaseVersions));
+                UpdateDocoment();
+                TurnAllButton(true);
             });
-
         }
 
         private void AutoCB_Checked(object sender, RoutedEventArgs e)
@@ -153,6 +176,69 @@ namespace ReleaseEmailMaker
         private void DeleteItemBtn_Click(object sender, RoutedEventArgs e)
         {
             ChangeItem(false);
+        }
+
+        private void versionTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            string version = versionTB.Text;
+            if (!debugVersionTB.Text.StartsWith(version))
+            {
+                debugVersionTB.Text = version + ".";
+            }
+            if (!releaseVersionTB.Text.StartsWith(version))
+            {
+                releaseVersionTB.Text = version + ".";
+            }
+        }
+
+        private void UpdateDocoment()
+        {
+            documentTB.Dispatcher.Invoke(() =>
+            {
+                var title = "";
+                ReleaseVersions.Sort((i, j) => string.Compare(i.VersionNumber, j.VersionNumber));
+                foreach (var releaseVersion in ReleaseVersions)
+                {
+                    if (title.Contains(releaseVersion.ProductName))
+                    {
+                        title += "& " + releaseVersion.VersionNumber + " ";
+                    }
+                    else
+                    {
+                        title += releaseVersion.ProductName + " " + releaseVersion.VersionNumber + " ";
+                    }
+                }
+                title += ReleaseVersions.Count > 1 ? "are " : "is ";
+                title += "ready";
+                docTitleTB.Text = title;
+                docToTB.Text = null;
+                docCCTB.Text = null;
+                documentTB.Text = Constants.FORMAT_EMAIL_START + string.Join("\n", ReleaseVersions) + Constants.FORMAT_EMAIL_END;
+                docEndTB.Text = "Luigi Lu";
+            });
+        }
+
+        private void TurnAllButton(bool enable)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                statusTB.Text = enable ? "Ready" : "Processing...";
+                workGrid.IsEnabled = enable;
+            });
+        }
+
+        private void SendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var emailTitle = docTitleTB.Text;
+            var emailContent = documentTB.Text + docEndTB.Text;
+
+            if(string.IsNullOrWhiteSpace(emailTitle) ||
+                string.IsNullOrWhiteSpace(emailContent))
+            {
+                MessageBox.Show("Title/Content can't be blank!");
+                return;
+            }
+            MessageBox.Show(emailTitle + "\n\n" + emailContent, "Please confirm the email!!!");
         }
     }
 }
