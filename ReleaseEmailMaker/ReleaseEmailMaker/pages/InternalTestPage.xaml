@@ -1,0 +1,104 @@
+﻿<Page x:Class="ReleaseEmailMaker.InternalTestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ReleaseEmailMaker"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="800" d:DesignWidth="800"
+      Title="InternalTestPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0" Header="Version">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListView Grid.Column="0" Name="testVersionsLB" BorderBrush="Black" BorderThickness="1" Margin="5,5,5,5">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Use">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Click="TestVersionCheckBox_Click"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Date">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Date}" Background="White" Width="100" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Version">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding ProjectVersion}" Click="testVersionBtn_Click" Background="White" Width="200" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Pass">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Pass}" Background="White" Width="30" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Partial">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Partial}" Click="PartialBtn_Click" Background="White" Width="30" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Fail">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Fail}" Click="FailBtn_Click" Background="White" Width="30" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Oprations">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="DELETE" Click="DeleteTestVersionBtn_Click" Background="Red" Foreground="White" Width="50" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <GroupBox Grid.Column="1" Header="Add version">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Project:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBox Grid.Row="1" Name="addProjectTB" VerticalContentAlignment="Center" Margin="5,5,5,5"/>
+                        <Label Grid.Row="2" Content="Version:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBox Grid.Row="3" Name="addVersionTB" VerticalContentAlignment="Center" Margin="5,5,5,5"/>
+                        <Label Grid.Row="4" Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBox Grid.Row="5" Name="addDateTB" VerticalContentAlignment="Center" Margin="5,5,5,5"/>
+                        <Button Grid.Row="6" Click="AddVersionBtn_Click" Name="addVersionBtn" Content="Add" Margin="5,5,5,5"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

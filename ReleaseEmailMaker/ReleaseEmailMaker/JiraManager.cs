@@ -106,14 +106,13 @@ namespace ReleaseEmailMaker
         public List<Issue> GetIssuesFinishInThisWeek(string version = null)
         {
             var issues = _jira.Filters.GetIssuesFromFavoriteAsync("finish in this week").Result;
-
-            if(version == null)
+            if (version == null)
             {
                 return issues.ToList();
             }
             else
             {
-                return issues.Where(p=> p.FixVersions == version || ((p.FixVersions == null || p.FixVersions.Count==0) && p.AffectsVersions == version)).ToList();
+                return issues.Where(p => p.FixVersions == version || ((p.FixVersions == null || p.FixVersions.Count == 0) && p.AffectsVersions == version)).ToList();
             }
         }
 

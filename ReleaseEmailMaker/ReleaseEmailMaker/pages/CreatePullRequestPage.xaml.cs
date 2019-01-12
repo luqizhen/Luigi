@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ReleaseEmailMaker
 {
     /// <summary>
-    /// Interaction logic for InternalTestPage.xaml
+    /// Interaction logic for CreatePullRequestPage.xaml
     /// </summary>
-    public partial class InternalTestPage : Page
+    public partial class CreatePullRequestPage : Page
     {
-        public InternalTestPage()
+        public CreatePullRequestPage()
         {
             InitializeComponent();
         }

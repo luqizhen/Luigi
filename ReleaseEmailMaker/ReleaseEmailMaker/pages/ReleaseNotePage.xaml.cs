@@ -78,7 +78,11 @@ namespace ReleaseEmailMaker
                 rv.UpdateItemsByVersion();
                 UpdateDocoment();
                 TurnAllButton(true);
-            });
+            }).ContinueWith(eve =>
+            {
+                MessageBox.Show("Incorrect username/password!");
+                TurnAllButton(true);
+            }, TaskContinuationOptions.OnlyOnFaulted);
         }
 
 

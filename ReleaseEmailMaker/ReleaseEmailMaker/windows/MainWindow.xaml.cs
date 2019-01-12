@@ -14,6 +14,13 @@ namespace ReleaseEmailMaker
         public MainWindow()
         {
             InitializeComponent();
+            if (Constants.ENABLE_RELEASE_TOOLS)
+            {
+                applicationTitle.Content = Constants.APPLICATION_NAME;
+                progressMonitorPageTab.Visibility = Visibility.Visible;
+                InternalTestPageTab.Visibility = Visibility.Visible;
+                ReleaseNotePageTab.Visibility = Visibility.Visible;
+            }
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)

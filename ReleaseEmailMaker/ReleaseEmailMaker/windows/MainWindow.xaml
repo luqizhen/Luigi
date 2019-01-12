@@ -21,17 +21,20 @@
             <Button Name="ExitBtn" Width="50" HorizontalAlignment="Right" Background="#0099FF" BorderThickness="0" Click="Exit_Click">
                 <Label Content="EXIT" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dell Release Assistant" FontSize="15" Foreground="White"/>
+            <Label Name="applicationTitle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="White" Content="Dell Commitment Assistant"/>
         </Grid>
         <TabControl Grid.Row="1">
-            <TabItem Header="Progress Monitor">
-                <Frame Source="ProgressMonitorPage.xaml"/>
+            <TabItem Header="Create PR">
+                <Frame Source="../pages/CreatePullRequestPage.xaml"/>
             </TabItem>
-            <TabItem Header="Internal Test">
-                <Frame Source="InternalTestPage.xaml"/>
+            <TabItem Header="Progress Monitor" Visibility="Collapsed" Name="progressMonitorPageTab">
+                <Frame Source="../pages/ProgressMonitorPage.xaml"/>
             </TabItem>
-            <TabItem Header="Release Note" IsSelected="True">
-                <Frame Source="ReleaseNotePage.xaml"/>
+            <TabItem Header="Internal Test" Visibility="Collapsed" Name="InternalTestPageTab">
+                <Frame Source="../pages/InternalTestPage.xaml"/>
+            </TabItem>
+            <TabItem Header="Release Note" Visibility="Collapsed" Name="ReleaseNotePageTab">
+                <Frame Source="../pages/ReleaseNotePage.xaml"/>
             </TabItem>
         </TabControl>
     </Grid>

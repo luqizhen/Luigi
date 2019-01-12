@@ -4,6 +4,9 @@ namespace ReleaseEmailMaker
 {
     class Constants
     {
+        public const bool ENABLE_RELEASE_TOOLS = true;
+        public const string APPLICATION_NAME = "Dell Commitment & Release Assistant";
+
         public const string FORMAT_TWO_VERSIONS = @"The {0} {1} Version {2} (debug build) and {3} (release build) are ready, the packages are in the {4} now.
 
 {0} {1}
