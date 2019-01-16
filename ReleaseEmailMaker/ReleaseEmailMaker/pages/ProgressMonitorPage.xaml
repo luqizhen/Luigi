@@ -6,10 +6,153 @@
       xmlns:local="clr-namespace:ReleaseEmailMaker"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="600" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="800"
       Title="ProgressMonitorPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="workGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Header="Issues">
+                <ListView Name="monitorIssuesLB" BorderBrush="LightGray" BorderThickness="1" Margin="5,5,5,5">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Assignee" Width="100" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Assignee}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Status" Width="125">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Status.Name}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="ID" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Key}" Click="JIRA_link_click" Background="White" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Priority" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Priority}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Summary"  Width="160">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Summary}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Updated" Width="80" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Updated}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Alert" Width="75" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Button Grid.Column="0" Content="G" Width="25" Background="Green" HorizontalAlignment="Center" Click="Set_Green_Click"/>
+                                            <Button Grid.Column="1" Content="Y" Width="25" Background="Yellow" HorizontalAlignment="Center" Click="Set_Yellow_Click"/>
+                                            <Button Grid.Column="2" Content="R" Width="25" Background="Red" HorizontalAlignment="Center" Click="Set_Red_Click"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="PRs">
+                <ListView Name="monitorPRLB" BorderBrush="LightGray" BorderThickness="1" Margin="5,5,5,5">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Assignee" Width="80" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Assignee}" Background="White" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="JIRA ID" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding IssueID}" Click="JIRA_link_click" Background="White" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Title" Width="300">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Title}" Click="PR_link_click" Background="White" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Key reviewers (no action)" Width="200" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding KeyReviewers}" Background="White" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Updated" Width="100" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Updated}" Background="White" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+            <GroupBox Grid.Row="2" Header="Operations">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="RefreshBtn" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" Content="Refresh" Click="Refresh_Click"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StatusBar Background="White">
+                <TextBlock Name="statusTB"/>
+            </StatusBar>
+        </Grid>
     </Grid>
 </Page>

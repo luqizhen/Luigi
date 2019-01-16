@@ -90,6 +90,7 @@
       <DependentUpon>InternalTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="JiraManager.cs" />
+    <Compile Include="PullRequest.cs" />
     <Compile Include="windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>

@@ -75,6 +75,11 @@ namespace ReleaseEmailMaker
             }
         }
 
+        public List<Issue> GetIssuesUnderMonitor()
+        {
+            return _jira.Filters.GetIssuesFromFavoriteAsync("need monitor", maxIssues:100).Result.ToList();
+        }
+
         public DateTime? GetCreatedTime(string jiraID, bool useLocal = true)
         {
             var issue = GetIssue(jiraID, useLocal);
@@ -105,7 +110,7 @@ namespace ReleaseEmailMaker
 
         public List<Issue> GetIssuesFinishInThisWeek(string version = null)
         {
-            var issues = _jira.Filters.GetIssuesFromFavoriteAsync("finish in this week").Result;
+            var issues = _jira.Filters.GetIssuesFromFavoriteAsync("finish in this week", maxIssues: 100).Result;
             if (version == null)
             {
                 return issues.ToList();
