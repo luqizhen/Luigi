@@ -1,6 +1,6 @@
-﻿using Atlassian.Jira;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Atlassian.Jira;
 
 namespace ReleaseEmailMaker
 {
@@ -21,7 +22,7 @@ namespace ReleaseEmailMaker
     /// </summary>
     public partial class ProgressMonitorPage : Page
     {
-        internal List<Issue> MonitoredIssues = new List<Issue>();
+        internal List<MyIssue> MonitoredIssues = new List<MyIssue>();
         internal List<PullRequest> MonitoredPRs = new List<PullRequest>();
 
         public ProgressMonitorPage()
@@ -47,18 +48,21 @@ namespace ReleaseEmailMaker
         {
             var item = (ListBoxItem)monitorIssuesLB.ContainerFromElement(sender as Button);
             item.Background = new SolidColorBrush(Colors.LightGreen);
+            (item.DataContext as MyIssue).Level = "0";
         }
 
         private void Set_Yellow_Click(object sender, RoutedEventArgs e)
         {
             var item = (ListBoxItem)monitorIssuesLB.ContainerFromElement(sender as Button);
             item.Background = new SolidColorBrush(Colors.LightYellow);
+            (item.DataContext as MyIssue).Level = "1";
         }
 
         private void Set_Red_Click(object sender, RoutedEventArgs e)
         {
             var item = (ListBoxItem)monitorIssuesLB.ContainerFromElement(sender as Button);
             item.Background = new SolidColorBrush(Colors.LightPink);
+            (item.DataContext as MyIssue).Level = "2";
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -74,7 +78,7 @@ namespace ReleaseEmailMaker
             {
                 //Get latest JIRA info from remote
                 MonitoredIssues.Clear();
-                MonitoredIssues.AddRange(JiraManager.Instance.GetIssuesUnderMonitor());
+                MonitoredIssues.AddRange(JiraManager.Instance.GetIssuesUnderMonitor().Select(issue => new MyIssue(issue)));
 
                 UpdatePage();
                 TurnAllButton(true);
@@ -85,8 +89,8 @@ namespace ReleaseEmailMaker
         {
             monitorIssuesLB.Dispatcher.Invoke(() =>
             {
-                MonitoredIssues.Sort((i, j) => string.Compare(i.Assignee, j.Assignee));
-                MonitoredPRs.Sort((i, j) => string.Compare(i.Assignee, j.Assignee));
+                //MonitoredIssues.Sort((i, j) => string.Compare(i.Assignee, j.Assignee));
+                //MonitoredPRs.Sort((i, j) => string.Compare(i.Assignee, j.Assignee));
                 monitorIssuesLB.Items.Refresh();
                 monitorPRLB.Items.Refresh();
             });
@@ -99,6 +103,56 @@ namespace ReleaseEmailMaker
                 statusTB.Text = enable ? "Ready" : "Processing...";
                 workGrid.IsEnabled = enable;
             });
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            var issuesText = SimpleJson.SimpleJson.SerializeObject(MonitoredIssues);
+            File.WriteAllText("MonitoredIssues.json", issuesText);
+            MessageBox.Show(issuesText);
+        }
+
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var issuesText = File.ReadAllText("MonitoredIssues.json");
+                var issueJSON = SimpleJson.SimpleJson.DeserializeObject(issuesText);
+                MonitoredIssues.Clear();
+                MonitoredIssues.AddRange(issueJSON as List<MyIssue>);
+                UpdatePage();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can't find/load cache file: "+ex);
+            }
+        }
+    }
+
+    internal class MyIssue
+    {
+        public string Assignee { get; private set; }
+        public string Key { get; private set; }
+        public string Summary { get; private set; }
+        public string Status { get; private set; }
+        public string Priority { get; private set; }
+        public string Updated { get; private set; }
+        public string Level { get; set; }
+
+        public MyIssue(Issue e)
+        {
+            Assignee = e.Assignee;
+            Key = e.Key.Value;
+            Summary = e.Summary;
+            Status = e.Status.Name;
+            Priority = e.Priority.Name;
+            Updated = e.Updated.Value.Date.ToShortDateString();
+            Level = "?";
+        }
+
+        public override string ToString()
+        {
+            return SimpleJson.SimpleJson.SerializeObject(this);
         }
     }
 }

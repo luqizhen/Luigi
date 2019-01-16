@@ -17,13 +17,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Grid.Row="0" Header="Version">
+        <GroupBox Grid.Row="0" Grid.RowSpan="2" Header="Version">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ListView Grid.Column="0" Name="testVersionsLB" BorderBrush="Black" BorderThickness="1" Margin="5,5,5,5">
+                <ListView Grid.Row="0" Grid.Column="0" Name="testVersionsLB" BorderBrush="Black" BorderThickness="1" Margin="5,5,5,5">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Use">
@@ -78,7 +82,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <GroupBox Grid.Column="1" Header="Add version">
+                <GroupBox Grid.Row="0" Grid.Column="1" Header="Add version">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -96,6 +100,18 @@
                         <Label Grid.Row="4" Content="Date:" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <TextBox Grid.Row="5" Name="addDateTB" VerticalContentAlignment="Center" Margin="5,5,5,5"/>
                         <Button Grid.Row="6" Click="AddVersionBtn_Click" Name="addVersionBtn" Content="Add" Margin="5,5,5,5"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Solutions">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Name="solutionLB"/>
                     </Grid>
                 </GroupBox>
             </Grid>

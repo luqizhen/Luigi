@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ReleaseEmailMaker"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="800" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="1000"
       Title="ProgressMonitorPage">
 
     <Grid>
@@ -16,25 +16,25 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Name="workGrid">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Header="Issues">
                 <ListView Name="monitorIssuesLB" BorderBrush="LightGray" BorderThickness="1" Margin="5,5,5,5">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Assignee" Width="100" >
+                            <GridViewColumn Header="Assignee" Width="110" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding Assignee}" HorizontalAlignment="Center"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Status" Width="125">
+                            <GridViewColumn Header="Status" Width="135">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="{Binding Status.Name}" HorizontalAlignment="Center"/>
+                                        <Label Content="{Binding Status}" HorizontalAlignment="Center"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -52,14 +52,14 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Summary"  Width="160">
+                            <GridViewColumn Header="Summary"  Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding Summary}" HorizontalAlignment="Center"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Updated" Width="80" >
+                            <GridViewColumn Header="Updated" Width="100" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label Content="{Binding Updated}" HorizontalAlignment="Center"/>
@@ -133,10 +133,6 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -145,7 +141,9 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Name="RefreshBtn" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" Content="Refresh" Click="Refresh_Click"/>
+                    <Button Name="RefreshBtn" Grid.Column="1" Margin="5,5,5,5" Content="Fetch" Click="Refresh_Click"/>
+                    <Button Name="LoadBtn" Grid.Column="2" Margin="5,5,5,5" Content="Load" Click="Load_Click"/>
+                    <Button Name="ExportBtn" Grid.Column="3" Margin="5,5,5,5" Content="Export" Click="Export_Click"/>
                 </Grid>
             </GroupBox>
         </Grid>

@@ -8,7 +8,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
-        Title="Release Email Maker" Height="833" Width="800">
+        Title="Release Email Maker" Height="833" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="33"/>

@@ -23,15 +23,6 @@ namespace ReleaseEmailMaker
     {
         public InternalTestPage()
         {
-            TestVersions.Add(new TestVersion()
-            {
-                Date = "1/11/2019",
-                Project = "EXCALIBUR",
-                Version = "4.3",
-                Pass = 3,
-                Partial = 0,
-                Fail = 1
-            });
             InitializeComponent();
             testVersionsLB.ItemsSource = TestVersions;
         }

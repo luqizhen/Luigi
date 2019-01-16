@@ -27,7 +27,7 @@ namespace ReleaseEmailMaker
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var username = usernameTB.Text;
-            var password = passwordTB.Text;
+            var password = passwordTB.Password;
 
             if(JiraManager.Instance.Login(username, password))
             {
