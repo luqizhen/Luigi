@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,11 @@ namespace ReleaseEmailMaker
 
         private void JIRA_link_click(object sender, RoutedEventArgs e)
         {
-
+            MyIssue issue = (sender as Button).DataContext as MyIssue;
+            Process p = new Process();
+            p.StartInfo.FileName = "explorer.exe";
+            p.StartInfo.Arguments = $"\"{issue.URL}\"";
+            p.Start();
         }
 
         private void PR_link_click(object sender, RoutedEventArgs e)
@@ -138,12 +143,13 @@ namespace ReleaseEmailMaker
         public string Priority { get; private set; }
         public string Updated { get; private set; }
         public string Level { get; set; }
+        public string URL { get => @"https://jira.cpgswtools.com/browse/" + Key; }
 
         public MyIssue(Issue e)
         {
-            Assignee = e.Assignee;
+            Assignee = e.Assignee.Replace(@"_",@" ");
             Key = e.Key.Value;
-            Summary = e.Summary;
+            Summary = e.Summary.Replace(@"_", @" ");
             Status = e.Status.Name;
             Priority = e.Priority.Name;
             Updated = e.Updated.Value.Date.ToShortDateString();
