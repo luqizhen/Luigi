@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\thirdparty\WindowsAPI\WindowsAPI.csproj">
-      <Project>{49B2222E-D303-4147-90C4-2BA23BFED12A}</Project>
+      <Project>{13938c95-dc5e-4a4c-ac89-c143e9cf97a3}</Project>
       <Name>WindowsAPI</Name>
     </ProjectReference>
   </ItemGroup>
