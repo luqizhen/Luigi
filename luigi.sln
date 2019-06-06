@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "algorithms", "algorithms", "{2C74A219-EA0C-4866-9EF9-EFE65ADBAAC4}"
 EndProject
@@ -19,7 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dataStructures", "dataStruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTree", "dataStructures\BTree\BTree.csproj", "{944AEBD8-96D0-4760-80A3-A293F0AEB510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkovChain", "dataStructures\MarkovChain\MarkovChain.csproj", "{599CBAC7-1D76-4098-923A-815E85CB6563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkovChain", "dataStructures\MarkovChain\MarkovChain.csproj", "{599CBAC7-1D76-4098-923A-815E85CB6563}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{89F55D1C-343B-40A1-9AAE-51260EC3BA1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utilities", "utilities", "{ED0B85DE-18B9-4EEA-9B6F-780CD1A6FD8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "thirdparty", "thirdparty", "{EC618D2B-F2F4-4831-8BE4-9206BC97D44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "utilities\Simulator\Simulator.csproj", "{018BF420-EDBD-431E-AEB6-BB618AF412A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAPI", "thirdparty\WindowsAPI\WindowsAPI.csproj", "{49B2222E-D303-4147-90C4-2BA23BFED12A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +57,14 @@ Global
 		{599CBAC7-1D76-4098-923A-815E85CB6563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{599CBAC7-1D76-4098-923A-815E85CB6563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{599CBAC7-1D76-4098-923A-815E85CB6563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{018BF420-EDBD-431E-AEB6-BB618AF412A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{018BF420-EDBD-431E-AEB6-BB618AF412A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{018BF420-EDBD-431E-AEB6-BB618AF412A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{018BF420-EDBD-431E-AEB6-BB618AF412A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49B2222E-D303-4147-90C4-2BA23BFED12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49B2222E-D303-4147-90C4-2BA23BFED12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49B2222E-D303-4147-90C4-2BA23BFED12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49B2222E-D303-4147-90C4-2BA23BFED12A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +75,8 @@ Global
 		{A2B6A196-D65D-4D8E-AF13-414F34985C4E} = {AD05249A-7159-4BBC-80D6-4288C4094561}
 		{944AEBD8-96D0-4760-80A3-A293F0AEB510} = {95FB2CCA-2AD1-4D31-8A75-5B76DF5340AB}
 		{599CBAC7-1D76-4098-923A-815E85CB6563} = {95FB2CCA-2AD1-4D31-8A75-5B76DF5340AB}
+		{018BF420-EDBD-431E-AEB6-BB618AF412A5} = {ED0B85DE-18B9-4EEA-9B6F-780CD1A6FD8B}
+		{49B2222E-D303-4147-90C4-2BA23BFED12A} = {EC618D2B-F2F4-4831-8BE4-9206BC97D44D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62C2AEC0-F935-4458-9ACE-D6F501935A3C}
