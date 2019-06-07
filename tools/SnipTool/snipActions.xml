@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<snipActions>
+  <repeat>true</repeat>
+  <steps>
+    <step>press TAB</step>
+    <step>press TAB</step>
+    <step>press ENTER</step>
+    <step>press UP</step>
+    <step>press ENTER</step>
+    <step>wait 1000</step>
+    <step time="4000">snip restart</step>
+    <step time="4000">snip shutdown</step>
+    <step time="4000">snip winre</step>
+    <step>press UP</step>
+    <step>press UP</step>
+    <step>press DOWN</step>
+    <step>wait 2000</step>
+  </steps>
+</snipActions>

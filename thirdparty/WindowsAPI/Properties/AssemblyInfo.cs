@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DoScreenshots")]
+[assembly: AssemblyTitle("WindowsAPI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DoScreenshots")]
+[assembly: AssemblyProduct("WindowsAPI")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d8ce115d-3e19-4df7-9b63-331dfbf6f361")]
+[assembly: Guid("88930174-5529-4c47-b283-7b3732f82291")]
 
 // Version information for an assembly consists of the following four values:
 //

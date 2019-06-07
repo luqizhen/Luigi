@@ -1,5 +1,4 @@
-﻿using Simulator;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -7,19 +6,19 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace Tools
+namespace luigi.utilities
 {
-    public class Screenshot
+    public class SnipUtils
     {
         /// <summary>
         /// Used to capture and save the screenshot, NOTICE that it can only be called by a STA thread.
         /// </summary>
         /// <param name="outPath"></param>
-        internal static void SaveAsPNG(string outPath)
+        private static void SaveAsPNG(string outPath)
         {
-            KeyboardSimulator.PressScreenshot();
+            KeyboardUtils.PressScreenshot();
             Thread.Sleep(1000);
-            if (!Clipboard.ContainsImage())
+            if (!Clipboard.ContainsImage()) 
             {
                 return;
             }
@@ -49,25 +48,22 @@ namespace Tools
             bool ret = false;
             if (!string.IsNullOrEmpty(FileName))
             {
-                SaveAsPNG(FileName);
+                Thread td = new Thread(() => SaveAsPNG(FileName));
+                td.TrySetApartmentState(ApartmentState.STA);
+                td.Start();
+                td.Join();
                 ret = true;
             }
             return ret;
         }
-
+        
         public static void CaptureScreenByRect(Rect rect, string outPath)
         {
-            try
+            Bitmap bitmap = new Bitmap(Convert.ToInt32(rect.Width), Convert.ToInt32(rect.Height));
+            using (Graphics graphics = Graphics.FromImage(bitmap))
             {
-                Bitmap bitmap = new Bitmap(Convert.ToInt32(rect.Width), Convert.ToInt32(rect.Height));
-                using (Graphics graphics = Graphics.FromImage(bitmap))
-                {
-                    graphics.CopyFromScreen(Convert.ToInt32(rect.Left), Convert.ToInt32(rect.Top), 0, 0, new System.Drawing.Size(Convert.ToInt32(rect.Width), Convert.ToInt32(rect.Height)));
-                    bitmap.Save(outPath, ImageFormat.Png);
-                }
-            }
-            catch (Exception ex)
-            {
+                graphics.CopyFromScreen(Convert.ToInt32(rect.Left), Convert.ToInt32(rect.Top), 0, 0, new System.Drawing.Size(Convert.ToInt32(rect.Width), Convert.ToInt32(rect.Height)));
+                bitmap.Save(outPath, ImageFormat.Png);
             }
         }
     }

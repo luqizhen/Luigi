@@ -5,9 +5,9 @@ using System.Threading;
 using WindowsAPI;
 using static WindowsAPI.User32;
 
-namespace luigi.utilities.Simulator
+namespace luigi.utilities
 {
-    public class KeyboardSimulator
+    public partial class KeyboardUtils
     {
         /// <summary>
         /// Press screenshot
@@ -44,7 +44,6 @@ namespace luigi.utilities.Simulator
         {
             PressDown(key);
             PressUp(key);
-            Thread.Sleep(250);
         }
         
         /// <summary>
