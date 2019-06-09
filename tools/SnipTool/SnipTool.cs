@@ -10,6 +10,7 @@ namespace luigi.tools
     {
         static void Main(string[] args)
         {
+            Thread.Sleep(3000); // delay 3 seconds to start the tool.
             bool shouldLoop = false;
             Action<string> action = null;
             if (LoadActions(ref shouldLoop, ref action))
@@ -68,7 +69,7 @@ namespace luigi.tools
                 {
                     case "PRESS":
                         KeyboardUtils.Key key;
-                        if(Enum.TryParse<KeyboardUtils.Key>(stepStr[1], out key))
+                        if(Enum.TryParse<KeyboardUtils.Key>(stepStr[1].ToUpper(), out key))
                         {
                             innerAction = (str) =>
                             {
@@ -97,7 +98,6 @@ namespace luigi.tools
                         break;
                     default:
                         return false;
-                        break;
                 }
                 if (needWait)
                 {
