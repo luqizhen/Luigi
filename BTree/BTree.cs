@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace luigi.dataStructures
+namespace luigi.algorithms
 {
     public partial class BTree<T> : ICollection<T>
     {

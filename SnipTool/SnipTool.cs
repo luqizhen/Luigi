@@ -1,10 +1,9 @@
-﻿using luigi.utilities;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
 
-namespace luigi.tools
+namespace luigi.apps
 {
     public partial class SnipTool
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace luigi.dataStructures
+namespace luigi.algorithms
 {
     public partial class MarkovChain
     {

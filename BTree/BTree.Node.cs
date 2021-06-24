@@ -1,4 +1,4 @@
-﻿namespace luigi.dataStructures
+﻿namespace luigi.algorithms
 {
     public partial class BTree<T>
     {
