@@ -7,7 +7,7 @@
 int main()
 {
     std::cout << "Hello World!\n";
-    HANDLE process = OpenProcess(PROCESS_ALL_ACCESS, FALSE, 15336);
+    HANDLE process = GetCurrentProcess();//OpenProcess(PROCESS_ALL_ACCESS, FALSE, 15336);
 
     PROCESS_POWER_THROTTLING_STATE PowerThrottling;
     RtlZeroMemory(&PowerThrottling, sizeof(PowerThrottling));

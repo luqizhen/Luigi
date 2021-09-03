@@ -10,40 +10,26 @@ namespace POConEcoQoS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello!");
+            var process = Process.GetProcessById(29260);
+            Console.WriteLine(
+                $"Handle: {process.Handle}\n" +
+                $"Name: {process.ProcessName}\n" +
+                $"Priority: {process.PriorityClass}\n"
+                );
 
-            var process = Process.GetProcessById(15336);
-            Console.WriteLine($"Handle: {process.Handle}");
-            Console.WriteLine($"Name: {process.ProcessName}");
-            Console.WriteLine($"Priority: {process.PriorityClass}");
+            object processInfo = null;
 
-            {
-                var sizeOfProcessInfo = Marshal.SizeOf(typeof(WinAPI.PROCESS_POWER_THROTTLING_STATE));
-                var pProcessInfo = Marshal.AllocHGlobal(sizeOfProcessInfo);
-                var rs = WinAPI.GetProcessInformation(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling, pProcessInfo, sizeOfProcessInfo);
-                var processInfo = Marshal.PtrToStructure<WinAPI.PROCESS_POWER_THROTTLING_STATE>(pProcessInfo);
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"GetProcessInformation Result: {rs}");
-                sb.AppendLine($"Version: {processInfo.Version}");
-                sb.AppendLine($"ControlMask: {processInfo.ControlMask}");
-                sb.AppendLine($"StateMask: {processInfo.StateMask}");
-                Console.WriteLine(sb.ToString());
-                Marshal.FreeHGlobal(pProcessInfo);
-            }
+            //ProcessInformationWrapper.GetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling, out processInfo);
+            //Console.WriteLine(processInfo);
 
-            {
-                var sizeOfProcessInfo = Marshal.SizeOf(typeof(WinAPI.MEMORY_PRIORITY_INFORMATION));
-                var pProcessInfo = Marshal.AllocHGlobal(sizeOfProcessInfo);
-                var rs = WinAPI.GetProcessInformation(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessMemoryPriority, pProcessInfo, sizeOfProcessInfo);
-                var processInfo = Marshal.PtrToStructure<WinAPI.MEMORY_PRIORITY_INFORMATION>(pProcessInfo);
-                var sb = new StringBuilder();
-                sb.AppendLine($"GetProcessInformation Result: {rs}");
-                sb.AppendLine($"MemoryPriority: {processInfo.MemoryPriority}");
-                Console.WriteLine(sb.ToString());
-                Marshal.FreeHGlobal(pProcessInfo);
-            }
+            //ProcessInformationWrapper.GetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessMemoryPriority, out processInfo);
+            //Console.WriteLine(processInfo);
 
-            Console.WriteLine("Goodbye!");
+            //WinAPI.MEMORY_PRIORITY_INFORMATION pi = new WinAPI.MEMORY_PRIORITY_INFORMATION { MemoryPriority = 5 };
+            //ProcessInformationWrapper.SetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessMemoryPriority, pi);
+
+            //ProcessInformationWrapper.GetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessMemoryPriority, out processInfo);
+            //Console.WriteLine(processInfo);
         }
     }
 }

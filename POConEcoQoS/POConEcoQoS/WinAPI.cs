@@ -44,11 +44,25 @@ namespace POConEcoQoS
             public ULONG Version;
             public ULONG ControlMask;
             public ULONG StateMask;
+
+            public override string ToString()
+            {
+                return $"PROCESS_POWER_THROTTLING_STATE:\n" +
+                    $"\tVersion: {Version}\n" +
+                    $"\tControlMask:{ControlMask}\n" +
+                    $"\tStateMask:{StateMask}\n";
+            }
         }
 
         public struct MEMORY_PRIORITY_INFORMATION
         {
             public ULONG MemoryPriority;
+
+            public override string ToString()
+            {
+                return $"MEMORY_PRIORITY_INFORMATION:\n" +
+                    $"\tMemoryPriority: {MemoryPriority}\n";
+            }
         }
     }
 }
