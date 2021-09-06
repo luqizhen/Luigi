@@ -10,17 +10,18 @@ namespace POConEcoQoS
     {
         static void Main(string[] args)
         {
-            var process = Process.GetProcessById(29260);
+            var process = Process.GetCurrentProcess();
             Console.WriteLine(
                 $"Handle: {process.Handle}\n" +
                 $"Name: {process.ProcessName}\n" +
                 $"Priority: {process.PriorityClass}\n"
                 );
 
-            object processInfo = null;
+            object processInfo;
 
-            //ProcessInformationWrapper.GetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling, out processInfo);
-            //Console.WriteLine(processInfo);
+            var rs = ProcessInformationWrapper.GetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling, out processInfo);
+            Console.WriteLine("GetProcessInfo(ProcessPowerThrottling): " + rs);
+            Console.WriteLine(processInfo);
 
             //ProcessInformationWrapper.GetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessMemoryPriority, out processInfo);
             //Console.WriteLine(processInfo);
