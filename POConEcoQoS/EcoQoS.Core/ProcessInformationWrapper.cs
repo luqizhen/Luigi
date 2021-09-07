@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace POConEcoQoS
+namespace EcoQoS.Core
 {
-    internal class ProcessInformationWrapper
+    public class ProcessInformationWrapper
     {
         public static bool GetProcessInfo(IntPtr handle, WinAPI.PROCESS_INFORMATION_CLASS piClass, out object processInfo)
         {
@@ -60,8 +61,33 @@ namespace POConEcoQoS
                 return result != 0;
             }
 
-            processInfo = null;
             return false;
+        }
+
+        public static bool SwitchToEcoQoS()
+        {
+            var process = Process.GetCurrentProcess();
+            WinAPI.PROCESS_POWER_THROTTLING_STATE pi = new WinAPI.PROCESS_POWER_THROTTLING_STATE
+            {
+                Version = WinAPI.PROCESS_POWER_THROTTLING_CURRENT_VERSION,
+                ControlMask = WinAPI.PROCESS_POWER_THROTTLING_EXECUTION_SPEED,
+                StateMask = WinAPI.PROCESS_POWER_THROTTLING_EXECUTION_SPEED
+            };
+
+            return SetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling, pi);
+        }
+
+        public static bool SwitchToHighQoS()
+        {
+            var process = Process.GetCurrentProcess();
+            WinAPI.PROCESS_POWER_THROTTLING_STATE pi = new WinAPI.PROCESS_POWER_THROTTLING_STATE
+            {
+                Version = WinAPI.PROCESS_POWER_THROTTLING_CURRENT_VERSION,
+                ControlMask = WinAPI.PROCESS_POWER_THROTTLING_EXECUTION_SPEED,
+                StateMask = 0
+            };
+
+            return SetProcessInfo(process.Handle, WinAPI.PROCESS_INFORMATION_CLASS.ProcessPowerThrottling, pi);
         }
     }
 }

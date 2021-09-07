@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="POConEcoQoSInCpp.cpp">
+    <ClCompile Include="EcoQoS.Test.CppConsoleApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,4 @@
-// POConEcoQoSInCpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// EcoQoS.Test.CppConsoleApp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -9,23 +9,22 @@ void ShowError()
 {
     // Retrieve the system error message for the last-error code
 
-    LPVOID lpMsgBuf;
     DWORD dw = GetLastError();
 
-    FormatMessage(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER |
-        FORMAT_MESSAGE_FROM_SYSTEM |
-        FORMAT_MESSAGE_IGNORE_INSERTS,
-        NULL,
-        dw,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        (LPTSTR)&lpMsgBuf,
-        0, NULL);
+    //LPVOID lpMsgBuf;
+    //FormatMessage(
+    //    FORMAT_MESSAGE_ALLOCATE_BUFFER |
+    //    FORMAT_MESSAGE_FROM_SYSTEM |
+    //    FORMAT_MESSAGE_IGNORE_INSERTS,
+    //    NULL,
+    //    dw,
+    //    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+    //    (LPTSTR)&lpMsgBuf,
+    //    0, NULL);
 
-    // Display the error message and exit the process
-    std::wcout << (LPTSTR)lpMsgBuf << std::endl;
+    std::wcout << dw << std::endl;
 
-    LocalFree(lpMsgBuf);
+    //LocalFree(lpMsgBuf);
     ExitProcess(dw);
 }
 
@@ -67,7 +66,4 @@ int main()
         std::cout << "PowerThrottling.ControlMask: " << PowerThrottling.ControlMask << std::endl;
         std::cout << "PowerThrottling.StateMask: " << PowerThrottling.StateMask << std::endl;
     }
-
-
-
 }

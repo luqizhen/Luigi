@@ -1,0 +1,84 @@
+﻿<Window x:Class="EcoQoS.Test.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="400" Width="800">
+    <Window.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="4,0"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Height" Value="24"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="Current QoS Level for the test App: "/>
+                <RadioButton x:Name="rbtn_EcoQoS" VerticalAlignment="Center" Content="EcoQoS" Checked="rbtn_EcoQoS_Checked"/>
+                <RadioButton x:Name="rbtn_HighQoS" VerticalAlignment="Center" Content="HighQoS" Checked="rbtn_HighQoS_Checked" IsChecked="True"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="12,4" Text="Task A (light)"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="12,4" Text="Task B (heavy)"/>
+                <ProgressBar x:Name="pb_a_progress" Grid.Row="0" Grid.Column="1" Height="20" Maximum="100"/>
+                <ProgressBar x:Name="pb_b_progress" Grid.Row="1" Grid.Column="1" Height="20" Maximum="100"/>
+                <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Cycles:"/>
+                    <TextBlock x:Name="tb_a_cycles" VerticalAlignment="Center" Text="0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Cycles:"/>
+                    <TextBlock x:Name="tb_b_cycles" VerticalAlignment="Center" Text="0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
+                    <Button x:Name="btn_a_start" Content="Start" Click="btn_a_start_Click"/>
+                    <Button x:Name="btn_a_stop" Content="Stop" IsEnabled="False" Click="btn_a_stop_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
+                    <Button x:Name="btn_b_start" Content="Start" Click="btn_b_start_Click"/>
+                    <Button x:Name="btn_b_stop" Content="Stop" IsEnabled="False" Click="btn_b_stop_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Row="2">
+            <DataGrid x:Name="gd_records" ItemsSource="{Binding Records}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Task" Width="auto" Binding="{Binding TaskName}"/>
+                    <DataGridTextColumn Header="Start Time" Width="auto" Binding="{Binding StartTime}"/>
+                    <DataGridTextColumn Header="Duration" Width="auto" Binding="{Binding Duration}"/>
+                    <DataGridTextColumn Header="Cycles" Width="auto" Binding="{Binding Cycles}"/>
+                    <DataGridTextColumn Header="Message" Width="*" Binding="{Binding Message}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Window>

@@ -6,7 +6,7 @@ using LPVOID = System.IntPtr;
 using DWORD = System.Int32;
 using ULONG = System.UInt32;
 
-namespace POConEcoQoS
+namespace EcoQoS.Core
 {
     public static class WinAPI
     {
