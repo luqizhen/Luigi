@@ -3,35 +3,71 @@
 
 #include <iostream>
 #include <windows.h>
+#include <strsafe.h>
+
+void ShowError()
+{
+    // Retrieve the system error message for the last-error code
+
+    LPVOID lpMsgBuf;
+    DWORD dw = GetLastError();
+
+    FormatMessage(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER |
+        FORMAT_MESSAGE_FROM_SYSTEM |
+        FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL,
+        dw,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR)&lpMsgBuf,
+        0, NULL);
+
+    // Display the error message and exit the process
+    std::wcout << (LPTSTR)lpMsgBuf << std::endl;
+
+    LocalFree(lpMsgBuf);
+    ExitProcess(dw);
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
-    HANDLE process = GetCurrentProcess();//OpenProcess(PROCESS_ALL_ACCESS, FALSE, 15336);
-
     PROCESS_POWER_THROTTLING_STATE PowerThrottling;
     RtlZeroMemory(&PowerThrottling, sizeof(PowerThrottling));
 
-    //BOOL rs = GetProcessInformation(process, ProcessPowerThrottling, &PowerThrottling, sizeof(PowerThrottling));
-
-    //std::cout << "Result: " << rs << std::endl;
-
-    //std::cout << "PowerThrottling.Version: " << PowerThrottling.Version << std::endl;
-    //std::cout << "PowerThrottling.ControlMask: " << PowerThrottling.ControlMask << std::endl;
-    //std::cout << "PowerThrottling.StateMask: " << PowerThrottling.StateMask << std::endl;
-
-    //MEMORY_PRIORITY_INFORMATION MemPrio;
-    //ZeroMemory(&MemPrio, sizeof(MemPrio));
-
-    //rs = GetProcessInformation(process, ProcessMemoryPriority, &MemPrio, sizeof(MemPrio));
-
+    PowerThrottling.Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION;
     PowerThrottling.ControlMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
     PowerThrottling.StateMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
 
-    BOOL rs = SetProcessInformation(GetCurrentProcess(),
+    BOOL set_rs = SetProcessInformation(
+        GetCurrentProcess(),
         ProcessPowerThrottling,
         &PowerThrottling,
         sizeof(PowerThrottling));
 
-    std::cout << "Result: " << rs << std::endl;
+    if (set_rs == 0) {
+        std::cout << "Error when set: ";
+        ShowError();
+    }
+    else {
+        std::cout << "Set successful." << std::endl;
+    }
+
+    BOOL get_rs = GetProcessInformation(
+        GetCurrentProcess(),
+        ProcessPowerThrottling,
+        &PowerThrottling,
+        sizeof(PowerThrottling));
+
+    if (get_rs == 0) {
+        std::cout << "Error when get: ";
+        ShowError();
+    }
+    else {
+        std::cout << "PowerThrottling.Version: " << PowerThrottling.Version << std::endl;
+        std::cout << "PowerThrottling.ControlMask: " << PowerThrottling.ControlMask << std::endl;
+        std::cout << "PowerThrottling.StateMask: " << PowerThrottling.StateMask << std::endl;
+    }
+
+
+
 }

@@ -39,6 +39,10 @@ namespace POConEcoQoS
             ProcessInformationClassMax
         };
 
+        public const int PROCESS_POWER_THROTTLING_CURRENT_VERSION = 0x1;
+        public const int PROCESS_POWER_THROTTLING_EXECUTION_SPEED = 0x1;
+        public const int PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION = 0x4;
+
         public struct PROCESS_POWER_THROTTLING_STATE
         {
             public ULONG Version;
