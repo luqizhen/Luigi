@@ -12,20 +12,26 @@ int main()
     PROCESS_POWER_THROTTLING_STATE PowerThrottling;
     RtlZeroMemory(&PowerThrottling, sizeof(PowerThrottling));
 
-    BOOL rs = GetProcessInformation(process, ProcessPowerThrottling, &PowerThrottling, sizeof(PowerThrottling));
+    //BOOL rs = GetProcessInformation(process, ProcessPowerThrottling, &PowerThrottling, sizeof(PowerThrottling));
+
+    //std::cout << "Result: " << rs << std::endl;
+
+    //std::cout << "PowerThrottling.Version: " << PowerThrottling.Version << std::endl;
+    //std::cout << "PowerThrottling.ControlMask: " << PowerThrottling.ControlMask << std::endl;
+    //std::cout << "PowerThrottling.StateMask: " << PowerThrottling.StateMask << std::endl;
+
+    //MEMORY_PRIORITY_INFORMATION MemPrio;
+    //ZeroMemory(&MemPrio, sizeof(MemPrio));
+
+    //rs = GetProcessInformation(process, ProcessMemoryPriority, &MemPrio, sizeof(MemPrio));
+
+    PowerThrottling.ControlMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
+    PowerThrottling.StateMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
+
+    BOOL rs = SetProcessInformation(GetCurrentProcess(),
+        ProcessPowerThrottling,
+        &PowerThrottling,
+        sizeof(PowerThrottling));
 
     std::cout << "Result: " << rs << std::endl;
-
-    std::cout << "PowerThrottling.Version: " << PowerThrottling.Version << std::endl;
-    std::cout << "PowerThrottling.ControlMask: " << PowerThrottling.ControlMask << std::endl;
-    std::cout << "PowerThrottling.StateMask: " << PowerThrottling.StateMask << std::endl;
-
-    MEMORY_PRIORITY_INFORMATION MemPrio;
-    ZeroMemory(&MemPrio, sizeof(MemPrio));
-
-    rs = GetProcessInformation(process, ProcessMemoryPriority, &MemPrio, sizeof(MemPrio));
-
-    std::cout << "Result: " << rs << std::endl;
-
-    std::cout << "MemPrio.Version: " << MemPrio.MemoryPriority << std::endl;
 }

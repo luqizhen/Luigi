@@ -34,7 +34,7 @@ namespace POConEcoQoS
             return false;
         }
 
-        public static int SetProcessInfo(IntPtr handle, WinAPI.PROCESS_INFORMATION_CLASS piClass, object processInfo)
+        public static bool SetProcessInfo(IntPtr handle, WinAPI.PROCESS_INFORMATION_CLASS piClass, object processInfo)
         {
             Type infoType = null;
             switch (piClass)
@@ -57,11 +57,11 @@ namespace POConEcoQoS
                 Marshal.StructureToPtr(processInfo, pProcessInfo, false);
                 var result = WinAPI.SetProcessInformation(handle, piClass, pProcessInfo, sizeOfProcessInfo);
                 Marshal.FreeHGlobal(pProcessInfo);
-                return result;
+                return result != 0;
             }
 
             processInfo = null;
-            return 0;
+            return false;
         }
     }
 }
