@@ -1,94 +1,44 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EcoQoS.Test.WPF.workloads;
 
 namespace EcoQoS.Test.WPF
 {
     internal class TaskRunner
     {
-        private DateTime _startTimeTaskA, _startTimeTaskB;
-        private int _cyclesTaskA, _cyclesTaskB;
-        private string _msgTaskA, _msgTaskB;
         private CancellationTokenSource _tokenSourceA, _tokenSourceB;
+        private IWorkLoad _workloadA = new LightWorkLoad();
+        private IWorkLoad _workloadB = new HeavyWorkLoad();
 
-        private readonly Random _rand = new Random(((int)DateTime.Now.Ticks));
-
-        internal void StartTaskA(Action<int, int> progressCallback = null)
+        internal async Task<Record> RunTaskAAsync(Action<int, int> progressCallback = null)
         {
-            _startTimeTaskA = DateTime.Now;
+            var startTime = DateTime.Now;
             _tokenSourceA = new CancellationTokenSource();
-            Task.Run(() =>
-            {
-                RunTaskA(progressCallback);
-            }, _tokenSourceA.Token);
+
+            var cycles = await _workloadA.RunAsync(_tokenSourceA, progressCallback);
+
+            return new Record() { TaskName = "TASK A", StartTime = startTime, Duration = DateTime.Now - startTime, Cycles = cycles, Message = string.Empty };
         }
 
-        internal void StartTaskB(Action<int, int> progressCallback = null)
+        internal async Task<Record> RunTaskBAsync(Action<int, int> progressCallback = null)
         {
-            _startTimeTaskB = DateTime.Now;
+            var startTime = DateTime.Now;
             _tokenSourceB = new CancellationTokenSource();
-            Task.Run(() =>
-            {
-                RunTaskB(progressCallback);
-            }, _tokenSourceB.Token);
+
+            var cycles = await _workloadB.RunAsync(_tokenSourceB, progressCallback);
+
+            return new Record() { TaskName = "TASK B", StartTime = startTime, Duration = DateTime.Now - startTime, Cycles = cycles, Message = string.Empty };
         }
 
-        internal Record StopTaskA()
+        internal void StopTaskA()
         {
             _tokenSourceA.Cancel();
-            _msgTaskA = string.Empty;
-            return new Record() { TaskName = "TASK A", StartTime = _startTimeTaskA, Duration = DateTime.Now- _startTimeTaskA, Cycles = _cyclesTaskA, Message = _msgTaskA };
         }
 
-        internal Record StopTaskB()
+        internal void StopTaskB()
         {
             _tokenSourceB.Cancel();
-            _msgTaskB = string.Empty;
-            return new Record() { TaskName = "TASK B", StartTime = _startTimeTaskB, Duration = DateTime.Now- _startTimeTaskB, Cycles = _cyclesTaskB, Message = _msgTaskB };
-        }
-
-        private void RunTaskA(Action<int, int> progressCallback)
-        {
-            _cyclesTaskA = 0;
-            while (true)
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    Thread.Sleep(10);
-                    progressCallback?.Invoke(_cyclesTaskA, i);
-                    if (_tokenSourceA.IsCancellationRequested)
-                    {
-                        break;
-                    }
-                }
-                if (_tokenSourceA.IsCancellationRequested)
-                {
-                    break;
-                }
-                _cyclesTaskA++;
-            }
-        }
-
-        private void RunTaskB(Action<int, int> progressCallback)
-        {
-            _cyclesTaskB = 0;
-            while (true)
-            {
-                for (int i = 0; i < 100; i++)
-                {
-                    Thread.Sleep(50);
-                    progressCallback?.Invoke(_cyclesTaskB, i);
-                    if (_tokenSourceB.IsCancellationRequested)
-                    {
-                        break;
-                    }
-                }
-                if (_tokenSourceB.IsCancellationRequested)
-                {
-                    break;
-                }
-                _cyclesTaskB++;
-            }
         }
     }
 }

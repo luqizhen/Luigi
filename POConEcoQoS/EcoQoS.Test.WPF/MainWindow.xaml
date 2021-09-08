@@ -29,7 +29,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel x:Name="sp_QoS" Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" Text="Current QoS Level for the test App: "/>
                 <RadioButton x:Name="rbtn_EcoQoS" VerticalAlignment="Center" Content="EcoQoS" Checked="rbtn_EcoQoS_Checked"/>
                 <RadioButton x:Name="rbtn_HighQoS" VerticalAlignment="Center" Content="HighQoS" Checked="rbtn_HighQoS_Checked" IsChecked="True"/>

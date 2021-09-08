@@ -23,13 +23,37 @@ namespace EcoQoS.Test.WPF
     public partial class MainWindow : Window
     {
         private TaskRunner _taskRunner = new TaskRunner();
+        private bool _isTaskARunning = false;
+        private bool _isTaskBRunning = false;
 
         public ObservableCollection<Record> Records { get; set; } = new ObservableCollection<Record>();
+
+        public bool IsTaskARunning
+        {
+            get => _isTaskARunning;
+            private set
+            {
+                _isTaskARunning = value;
+                Refresh();
+            }
+        }
+
+        public bool IsTaskBRunning
+        {
+            get => _isTaskBRunning;
+            private set
+            {
+                _isTaskBRunning = value;
+                Refresh();
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+
+            Refresh();
         }
 
         private void rbtn_EcoQoS_Checked(object sender, RoutedEventArgs e)
@@ -50,40 +74,37 @@ namespace EcoQoS.Test.WPF
             }
         }
 
-        private void btn_a_start_Click(object sender, RoutedEventArgs e)
+        private async void btn_a_start_Click(object sender, RoutedEventArgs e)
         {
-            btn_a_start.IsEnabled = false;
-            btn_a_stop.IsEnabled = true;
-            _taskRunner.StartTaskA(progressCallback:ShowProgressA);
+            IsTaskARunning = true;
+
+            var record = await _taskRunner.RunTaskAAsync(progressCallback:ShowProgressA);
+            Records.Add(record);
+
+            IsTaskARunning = false;
         }
 
-        private void btn_a_stop_Click(object sender, RoutedEventArgs e)
+        private async void btn_b_start_Click(object sender, RoutedEventArgs e)
         {
-            var newRecord = _taskRunner.StopTaskA();
-            Records.Add(newRecord);
-            btn_a_stop.IsEnabled = false;
-            btn_a_start.IsEnabled = true;
+            IsTaskBRunning = true;
+
+            var record = await _taskRunner.RunTaskBAsync(progressCallback: ShowProgressB);
+            Records.Add(record);
+
+            IsTaskBRunning = false;
         }
 
-        private void btn_b_start_Click(object sender, RoutedEventArgs e)
-        {
-            btn_b_start.IsEnabled = false;
-            btn_b_stop.IsEnabled = true;
-            _taskRunner.StartTaskB(progressCallback: ShowProgressB);
-        }
+        private void btn_a_stop_Click(object sender, RoutedEventArgs e) => _taskRunner.StopTaskA();
 
-        private void btn_b_stop_Click(object sender, RoutedEventArgs e)
-        {
-            var newRecord = _taskRunner.StopTaskB();
-            Records.Add(newRecord);
-            btn_b_stop.IsEnabled = false;
-            btn_b_start.IsEnabled = true;
-        }
+        private void btn_b_stop_Click(object sender, RoutedEventArgs e) => _taskRunner.StopTaskB();
 
-        private void AddRecord(string task, DateTime startTime, TimeSpan duration, int cycles, string msg)
+        private void Refresh()
         {
-            Record newRecord = new Record() { TaskName = task, StartTime = startTime, Duration = duration, Cycles = cycles, Message = msg };
-            Records.Add(newRecord);
+            btn_a_start.IsEnabled = !_isTaskARunning;
+            btn_a_stop.IsEnabled = _isTaskARunning;
+            btn_b_start.IsEnabled = !_isTaskBRunning;
+            btn_b_stop.IsEnabled = _isTaskBRunning;
+            sp_QoS.IsEnabled = !_isTaskARunning && !_isTaskBRunning;
         }
 
         private void ShowProgressA(int cycles, int progress)
