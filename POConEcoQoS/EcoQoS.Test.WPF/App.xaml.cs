@@ -13,5 +13,6 @@ namespace EcoQoS.Test.WPF
     /// </summary>
     public partial class App : Application
     {
+        public static string CurrentQoS { get; set; } = "HighQoS";
     }
 }

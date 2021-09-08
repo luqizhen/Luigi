@@ -18,7 +18,7 @@ namespace EcoQoS.Test.WPF
 
             var cycles = await _workloadA.RunAsync(_tokenSourceA, progressCallback);
 
-            return new Record() { TaskName = "TASK A", StartTime = startTime, Duration = DateTime.Now - startTime, Cycles = cycles, Message = string.Empty };
+            return new Record() { TaskName = "TASK A", QoS= App.CurrentQoS, StartTime = startTime, Duration = DateTime.Now - startTime, Cycles = cycles, Message = string.Empty };
         }
 
         internal async Task<Record> RunTaskBAsync(Action<int, int> progressCallback = null)
@@ -28,7 +28,7 @@ namespace EcoQoS.Test.WPF
 
             var cycles = await _workloadB.RunAsync(_tokenSourceB, progressCallback);
 
-            return new Record() { TaskName = "TASK B", StartTime = startTime, Duration = DateTime.Now - startTime, Cycles = cycles, Message = string.Empty };
+            return new Record() { TaskName = "TASK B", QoS = App.CurrentQoS, StartTime = startTime, Duration = DateTime.Now - startTime, Cycles = cycles, Message = string.Empty };
         }
 
         internal void StopTaskA()

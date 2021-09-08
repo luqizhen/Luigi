@@ -73,6 +73,7 @@
             <DataGrid x:Name="gd_records" ItemsSource="{Binding Records}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Task" Width="auto" Binding="{Binding TaskName}"/>
+                    <DataGridTextColumn Header="QoS" Width="auto" Binding="{Binding QoS}"/>
                     <DataGridTextColumn Header="Start Time" Width="auto" Binding="{Binding StartTime}"/>
                     <DataGridTextColumn Header="Duration" Width="auto" Binding="{Binding Duration}"/>
                     <DataGridTextColumn Header="Cycles" Width="auto" Binding="{Binding Cycles}"/>

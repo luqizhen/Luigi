@@ -63,6 +63,10 @@ namespace EcoQoS.Test.WPF
                 rbtn_HighQoS.IsChecked = true;
                 MessageBox.Show("Failed to switch to EcoQoS.");
             }
+            else
+            {
+                App.CurrentQoS = "EcoQoS";
+            }
         }
 
         private void rbtn_HighQoS_Checked(object sender, RoutedEventArgs e)
@@ -71,6 +75,10 @@ namespace EcoQoS.Test.WPF
             {
                 rbtn_EcoQoS.IsChecked = true;
                 MessageBox.Show("Failed to switch to HighQoS.");
+            }
+            else
+            {
+                App.CurrentQoS = "HighQoS";
             }
         }
 
